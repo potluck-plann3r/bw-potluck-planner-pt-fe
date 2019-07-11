@@ -1,10 +1,12 @@
 import React from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import Login from './components/Login/Login'
 
 function App() {
   return (
-    <div>
-      <h1>Our Potluck Planner!!!</h1>
-    </div>
+    <Router>
+      <Route path='/' component={Login} />
+    </Router>
   );
 }
 
