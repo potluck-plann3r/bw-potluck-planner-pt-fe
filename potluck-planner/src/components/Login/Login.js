@@ -5,18 +5,18 @@ import Styled from 'styled-components'
 
 const Container = Styled.div`
     width: 100%;
+    height: 100vh;
     
 `
-
 const HeaderDiv = Styled.div`
-    height: 6rem;
+    height: 10vh;
     background-color: green;
 `
 const LoginCard = Styled.div`
     width: 30rem;
     height: 40rem;
     background-color: red;
-    margin-top: 10rem;
+    /* margin-top: 10rem; */
     display: flex;
 
 `
@@ -28,7 +28,7 @@ const LoginForm = Styled.form`
     align-content: center;
 `
 const ContentDiv = Styled.div`
-    height: 0 auto;
+    height: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -36,9 +36,9 @@ const ContentDiv = Styled.div`
 
 `
 const LogInContent = Styled.div`
-    width: 50rem;
+    width: 20rem;
     background-color: blue;
-`
+`   
 
 class Login extends React.Component{
     constructor(props){
@@ -66,9 +66,7 @@ class Login extends React.Component{
 
                 </HeaderDiv>
                 <ContentDiv>
-                    <LogInContent>
-
-                    </LogInContent>
+                    <LogInContent> </LogInContent>
                     <LoginCard>
                         <LoginForm onSubmit={this.onSubmit}>
                             <input placeholder='User Name'
