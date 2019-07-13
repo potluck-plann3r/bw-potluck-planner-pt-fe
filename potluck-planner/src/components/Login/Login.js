@@ -4,6 +4,7 @@ import {login} from '../../actions'
 import Styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
+//#region Styles
 const Container = Styled.div`
     width: 100%;
     height: 100vh;
@@ -37,6 +38,8 @@ const LogInContent = Styled.div`
     width: 20rem;
     background-color: blue;
 `   
+//#endregion
+
 class Login extends React.Component{
     constructor(props){
         super(props);
