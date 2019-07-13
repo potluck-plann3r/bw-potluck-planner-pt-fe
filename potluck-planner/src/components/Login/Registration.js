@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import Styled from 'styled-components'
 import {register} from '../../actions'
+import {Link} from 'react-router-dom'
 
 const Container = Styled.div`
     width: 100%;
@@ -54,7 +55,9 @@ class Registration extends React.Component {
     render(){
         return(
             <Container>
-                <HeaderDiv></HeaderDiv>
+                <HeaderDiv>
+                    <Link to='/login'>Back to login</Link>
+                </HeaderDiv>
                 <RegForm onSubmit={this.handleReg}>
                     <input type='text'
                         placeholder='First name'
