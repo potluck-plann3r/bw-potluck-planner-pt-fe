@@ -1,7 +1,8 @@
-import {LOGIN_START} from '../actions'
+import {LOGIN_START, REGISTER} from '../actions'
 
 const initalState = {
-    isLoggingIn: false
+    isLoggingIn: false,
+    isRegistering: false
 }
 
  export const reducer = (state = initalState, action) =>{
@@ -12,7 +13,12 @@ const initalState = {
                 isLoggingIn: true
             }
         break;
-
+        
+        case REGISTER:
+            return{
+                ...state, 
+                isRegistering: true
+            }
         default:
             return state;
      }

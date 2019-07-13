@@ -2,11 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {login} from '../../actions'
 import Styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 const Container = Styled.div`
     width: 100%;
     height: 100vh;
-    
 `
 const HeaderDiv = Styled.div`
     height: 10vh;
@@ -18,7 +18,6 @@ const LoginCard = Styled.div`
     background-color: red;
     /* margin-top: 10rem; */
     display: flex;
-
 `
 const LoginForm = Styled.form`
     display: flex;
@@ -33,42 +32,47 @@ const ContentDiv = Styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-
 `
 const LogInContent = Styled.div`
     width: 20rem;
     background-color: blue;
 `   
-
 class Login extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            username: '',
-            password: ''
+            credentials: {
+                username: '',
+                password: ''
+            }
         }
     }
 
-    changeHadeler = e => {
-        e.preventDefault()
+    onChange = e =>{
         console.log(e.target.value);
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({credentials: {
+            ...this.state.credentials,
+            [e.target.name]: e.target.value
+        }})
     }
-
-    onSubmit(){
-        return null;
-    }
+    
+    handleLogin = e => {
+        e.preventDefault();
+        this.props
+          .login(this.state.credentials)
+            .then(() => this.props.history.push("/protected"));
+    };
     
     render(){
         return(
             <Container>
                 <HeaderDiv>
-
+                    <Link to='/register'>Sign up now</Link>
                 </HeaderDiv>
                 <ContentDiv>
                     <LogInContent> </LogInContent>
                     <LoginCard>
-                        <LoginForm onSubmit={this.onSubmit}>
+                        <LoginForm onSubmit={this.handleLogin}>
                             <input placeholder='User Name'
                                 type='text'
                                 name='username'
@@ -76,7 +80,7 @@ class Login extends React.Component{
                                 onChange={this.changeHadeler}>
                             </input>
                             <input placeholder='Password'
-                                type='text'
+                                type='password'
                                 name='password'
                                 value={this.state.password}
                                 onChange={this.changeHadeler}>
