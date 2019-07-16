@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import Styled from 'styled-components'
-import {register} from '../../actions'
-import {Link} from 'react-router-dom'
+import {connect} from 'react-redux';
+import Styled from 'styled-components';
+import {register} from '../../actions';
+import {Link} from 'react-router-dom';
 
 const Container = Styled.div`
     width: 100%;
@@ -26,14 +26,14 @@ class Registration extends React.Component {
         super(props);
         this.state = {
             regData: {
-                emial: '',
+                email: '',
                 firstName: '',
                 lastName: '',
                 password: '',
             }, 
 
             passwordsMatch: false,
-            emailsMatch: false
+            emailsMatch: false,
         }
     }
 
@@ -49,7 +49,6 @@ class Registration extends React.Component {
         e.preventDefault();
         this.props
           .register(this.state.regData)
-            // .then(() => this.props.history.push("/protected"));
     };
     
     render(){
@@ -70,7 +69,6 @@ class Registration extends React.Component {
                         name='lasttName'
                         value={this.state.username}
                         onChange={this.onChange}/>      
-
                     <input type='password'
                         placeholder='Password'
                         name='password'
@@ -97,3 +95,12 @@ export default connect(
         register
     }
 )(Registration)
+
+
+
+
+
+
+
+
+
