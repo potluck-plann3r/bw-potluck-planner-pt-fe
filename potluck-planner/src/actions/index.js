@@ -1,6 +1,7 @@
 import axios from 'axios'
 export const LOGIN_START = "LOGIN_START";
 export const REGISTER = 'REGISTER';
+export const LOGOUT = 'LOGOUT'
 
 export const login = creds => dispatch =>{
     dispatch({type: LOGIN_START});
@@ -17,3 +18,4 @@ export const register = regObj => dispatch =>{
         .then(res => console.log(res))
         .catch(err => console.log(err))
 }
+

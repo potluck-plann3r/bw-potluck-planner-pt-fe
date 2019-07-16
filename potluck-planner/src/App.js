@@ -4,7 +4,7 @@ import Login from './components/Login/Login'
 import Registration from './components/Login/Registration'
 import UserDashboard from './components/DashBoard/UserDashboard'
 import PrivateRoute from './components/Login/PrivateRoute'
-
+const WithAuth = PrivateRoute(UserDashboard)
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -16,7 +16,7 @@ class App extends React.Component{
       <Router>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Registration}  />
-        <PrivateRoute exact path='/protected' component={UserDashboard} />
+        <Route exact path='/protected' render={props => <WithAuth {...props}/>}/>
       </Router>
     );
   }

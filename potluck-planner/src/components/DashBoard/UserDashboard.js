@@ -27,14 +27,21 @@ class UserDashboard extends React.Component{
     constructor(props){
         super(props);
         this.state = { 
-            
         }
+    }
+
+    onLogOut = () =>{
+        console.log('Loggin out');
+        localStorage.removeItem('token');
+        this.props.history.push("/login");
     }
 
     render(){
         return (
             <Container>
-                <HeaderDiv>Header</HeaderDiv>
+                <HeaderDiv>
+                    <button onClick={this.onLogOut}>Log out</button>
+                </HeaderDiv>
                 <PotluckDiv>
                     <PotluckCard/>
                 </PotluckDiv>
@@ -43,4 +50,4 @@ class UserDashboard extends React.Component{
     }
 }
 
-export default connect(null)(UserDashboard)
+export default connect(null,{})(UserDashboard)

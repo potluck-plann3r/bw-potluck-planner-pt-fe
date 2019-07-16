@@ -1,4 +1,4 @@
-import {LOGIN_START, REGISTER} from '../actions'
+import {LOGIN_START, REGISTER, LOGOUT} from '../actions'
 
 const initalState = {
     isLoggingIn: false,
@@ -19,6 +19,7 @@ const initalState = {
                 ...state, 
                 isRegistering: true
             }
+        case LOGOUT: 
         default:
             return state;
      }
