@@ -5,6 +5,8 @@ import Styled from 'styled-components'
 const CardDiv = Styled.div`
     background-color: green;
     width: 20rem;
+    height: auto;
+    margin: 3rem 3rem 3rem 3rem;
 `
 //#endregion
 

@@ -11,6 +11,16 @@ const PotluckDiv = Styled.div`
     flex-direction: column;
     flex-wrap: wrap;
 `
+const Container = Styled.div`
+    width: 100%;
+    height: 100vh;
+    background-color: slategrey;
+`
+const HeaderDiv = Styled.div`
+    height: 10vh;
+    background-color: green;
+`
+
 //#endregion
 
 class UserDashboard extends React.Component{
@@ -23,12 +33,12 @@ class UserDashboard extends React.Component{
 
     render(){
         return (
-            <div>
-                <div>Header</div>
+            <Container>
+                <HeaderDiv>Header</HeaderDiv>
                 <PotluckDiv>
                     <PotluckCard/>
                 </PotluckDiv>
-            </div>
+            </Container>
         )
     }
 }
