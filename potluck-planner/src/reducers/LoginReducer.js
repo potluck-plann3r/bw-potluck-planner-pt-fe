@@ -1,8 +1,12 @@
-import {LOGIN_START, REGISTER, LOGOUT} from '../actions'
+import {LOGIN_START, REGISTER, GETPOTLUCKS, SUCCESS, FAILURE} from '../actions'
 
 const initalState = {
     isLoggingIn: false,
-    isRegistering: false
+    isRegistering: false,
+    fetchingPotlucks: false,
+    potlucks: [],
+    error: null
+
 }
 
  export const reducer = (state = initalState, action) =>{
@@ -10,7 +14,8 @@ const initalState = {
         case LOGIN_START: 
             return{
                 ...state,
-                isLoggingIn: true
+                isLoggingIn: true,
+                isRegistering: false
             }
         break;
         
@@ -19,7 +24,25 @@ const initalState = {
                 ...state, 
                 isRegistering: true
             }
-        case LOGOUT: 
+        case GETPOTLUCKS: 
+            return{
+                ...state,
+                fetchingPotlucks: true,
+                isLoggingIn: false,
+                idRegistering: false,
+            }
+        case SUCCESS: 
+            return{
+                ...state,
+                potlucks: action.payload,
+                fetchingPotlucks: false
+            }
+        case FAILURE:
+            return{
+                ...state,
+                fetchingPotlucks: false,
+                error: action.payload
+            }
         default:
             return state;
      }

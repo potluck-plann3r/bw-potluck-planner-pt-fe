@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PotluckCard from '../Potluck/PotLuckCard'
 import Styled from 'styled-components';
+import {getPotlucks} from '../../actions/index'
 
 //#region Styles
 const PotluckDiv = Styled.div`
@@ -36,18 +37,40 @@ class UserDashboard extends React.Component{
         this.props.history.push("/login");
     }
 
+    componentDidMount(){
+        this.props.getPotlucks();
+    }
+
     render(){
-        return (
-            <Container>
-                <HeaderDiv>
-                    <button onClick={this.onLogOut}>Log out</button>
-                </HeaderDiv>
-                <PotluckDiv>
-                    <PotluckCard/>
-                </PotluckDiv>
-            </Container>
-        )
+        if(this.props.fetchingPotlucks){
+           return(
+            <h2>Getting your potlucks</h2>
+            )
+        } else {
+            return(
+                <Container>
+                    <HeaderDiv>
+                        <button onClick={this.onLogOut}>Log out</button>
+                    </HeaderDiv>
+                    <PotluckDiv>
+                        <PotluckCard potlucks={this.props.potlucks} />
+                    </PotluckDiv>
+                </Container>
+            )
+        }
     }
 }
 
-export default connect(null,{})(UserDashboard)
+const mapStateToProps = state =>({
+    potlucks: state.potlucks,
+    error: state.error,
+    fetchingPotlucks: state.fetchingPotlucks
+
+})
+
+export default connect(
+    mapStateToProps,
+        {
+            getPotlucks
+        }
+) (UserDashboard)

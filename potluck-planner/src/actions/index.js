@@ -1,7 +1,10 @@
 import axios from 'axios'
 export const LOGIN_START = "LOGIN_START";
 export const REGISTER = 'REGISTER';
-export const LOGOUT = 'LOGOUT'
+export const LOGOUT = 'LOGOUT';
+export const GETPOTLUCKS = 'GETPOTLUCKS';
+export const SUCCESS = 'SUCCESS';
+export const FAILURE = 'FAILURE';
 
 export const login = creds => dispatch =>{
     dispatch({type: LOGIN_START});
@@ -17,5 +20,20 @@ export const register = regObj => dispatch =>{
         .post('https://potluck-plann3r.herokuapp.com/api/auth/register', regObj)
         .then(res => console.log(res))
         .catch(err => console.log(err))
+}
+
+export const getPotlucks = () => dispatch =>{
+    dispatch({type: GETPOTLUCKS});
+    return axios
+        .get('https://potluck-plann3r.herokuapp.com/api/potlucks/user')
+        .then(res => {
+                console.log(res.data);
+                dispatch({type: SUCCESS, payload: res.data}) 
+            }
+        )
+        .catch(err =>{
+            console.log(err.data);
+            dispatch({type: FAILURE, payload: err})
+        })
 }
 

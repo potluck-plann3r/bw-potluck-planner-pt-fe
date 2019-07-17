@@ -5,6 +5,7 @@ import Registration from './components/Login/Registration'
 import UserDashboard from './components/DashBoard/UserDashboard'
 import PrivateRoute from './components/Login/PrivateRoute'
 const WithAuth = PrivateRoute(UserDashboard)
+
 class App extends React.Component{
   constructor(props){
     super(props);
