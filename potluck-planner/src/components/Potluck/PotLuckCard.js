@@ -8,27 +8,7 @@ const CardDiv = Styled.div`
     height: auto; 
     margin: 3rem 3rem 3rem 3rem;
 `
-
-const Container = Styled.div`
-
-`
 //#endregion
-
-const testObj =  {
-    id: 6,
-    locationName: "the spot 666",
-    locationAddress: 3493,
-    locationStreet: "Bitt street",
-    locationUnit: "3A",
-    locationState: "NV",
-    locationCity: "Las Vegas",
-    locationCountry: "US",
-    locationPostcode: "70808",
-    userId: 64,
-    potluckId: 17,
-    role: 0,
-    attendance: 2
-}
 
 class PotluckCard extends React.Component{
     render()

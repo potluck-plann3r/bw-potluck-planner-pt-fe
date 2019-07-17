@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PotluckCard from '../Potluck/PotLuckCard'
+import CreatePotluck from '../Potluck/CreatePotluck'
 import Styled from 'styled-components';
 import {getPotlucks} from '../../actions/index'
+import {Route, Link} from 'react-router-dom'
 
 //#region Styles
 const PotluckDiv = Styled.div`
@@ -39,6 +41,7 @@ class UserDashboard extends React.Component{
 
     componentDidMount(){
         this.props.getPotlucks();
+        this.props.history.push('/protected/potlucks')
     }
 
     render(){
@@ -51,9 +54,11 @@ class UserDashboard extends React.Component{
                 <Container>
                     <HeaderDiv>
                         <button onClick={this.onLogOut}>Log out</button>
+                        <Link to='/protected/create-potluck'>Create Potluck</Link>
                     </HeaderDiv>
                     <PotluckDiv>
-                        <PotluckCard potlucks={this.props.potlucks} />
+                        <Route path='/protected/potlucks' component={PotluckCard}/>
+                        <Route path='/protected/create-potluck' component={CreatePotluck}/>
                     </PotluckDiv>
                 </Container>
             )

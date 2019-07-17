@@ -17,7 +17,7 @@ class App extends React.Component{
       <Router>
         <Route path='/login' component={Login} />
         <Route path='/register' component={Registration}  />
-        <Route exact path='/protected' render={props => <WithAuth {...props}/>}/>
+        <Route exact to='/protected' render={props => <WithAuth {...props}/>}/>
       </Router>
     );
   }
