@@ -1,6 +1,6 @@
 import React from 'react'
 import Styled from 'styled-components'
-
+import {connect} from 'react-redux'
 //#region Styled components
 const CardDiv = Styled.div`
     background-color: green;
@@ -11,6 +11,13 @@ const CardDiv = Styled.div`
 //#endregion
 
 class PotluckCard extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            potlucks: []
+        }
+    }
+    
     render()
     {
         if(this.props.potlucks === null || this.props.potlucks === undefined)
@@ -38,5 +45,13 @@ class PotluckCard extends React.Component{
     }
 }
 
+const mapStateToProps = state =>({
+    potlucks: state.potlucks
+})
 
-export default PotluckCard;
+export default connect(
+    mapStateToProps,
+    {
+
+    }
+) (PotluckCard);

@@ -16,6 +16,7 @@ class CreatePotluck extends React.Component{
             }
         }
     }
+
     onChange = e =>{
         e.preventDefault();
         this.setState({regData: {
@@ -24,6 +25,10 @@ class CreatePotluck extends React.Component{
         }})
     }
 
+    onCancel =_=>{
+        this.props.history.push('/protected/potlucks')
+    }
+    
     render(){
         return(
             <div>
@@ -36,6 +41,10 @@ class CreatePotluck extends React.Component{
                     <input placeholder='city' name='locationCity' onChange={this.onChange} />
                     <input placeholder='zip code' name='locationPostcode' onChange={this.onChange} />
                     <input placeholder='state' name='locationState' onChange={this.onChange}/>
+                    <div>
+                        <button>Submit</button>
+                        <button onClick={this.onCancel}>Cancel</button>
+                    </div>                   
                 </form>
             </div>
         )
