@@ -24,15 +24,15 @@ export const register = regObj => dispatch =>{
 
 export const getPotlucks = () => dispatch =>{
     dispatch({type: GETPOTLUCKS});
-    return axios
-        .get('https://potluck-plann3r.herokuapp.com/api/potlucks/user')
+    axios
+        .get('https://potluck-plann3r.herokuapp.com/api/potlucks/mine/')
         .then(res => {
                 console.log(res.data);
-                dispatch({type: SUCCESS, payload: res.data}) 
+                dispatch({type: SUCCESS, payload: res}) 
             }
         )
         .catch(err =>{
-            console.log(err.data);
+            console.log(err);
             dispatch({type: FAILURE, payload: err})
         })
 }

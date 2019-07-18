@@ -4,7 +4,7 @@ const initalState = {
     isLoggingIn: false,
     isRegistering: false,
     fetchingPotlucks: false,
-    potlucks: [],
+    potlucks: {},
     error: null
 
 }
@@ -17,8 +17,6 @@ const initalState = {
                 isLoggingIn: true,
                 isRegistering: false
             }
-        break;
-        
         case REGISTER:
             return{
                 ...state, 
