@@ -45,7 +45,7 @@ class Login extends React.Component{
         super(props);
         this.state = {
             credentials: {
-                username: '',
+                email: '',
                 password: ''
             }
         }
@@ -76,17 +76,17 @@ class Login extends React.Component{
                     <LogInContent> </LogInContent>
                     <LoginCard>
                         <LoginForm onSubmit={this.handleLogin}>
-                            <input placeholder='User Name'
+                            <input placeholder='E-mail'
                                 type='text'
-                                name='username'
+                                name='email'
                                 value={this.state.username}
-                                onChange={this.changeHadeler}>
+                                onChange={this.onChange}>
                             </input>
                             <input placeholder='Password'
                                 type='password'
                                 name='password'
                                 value={this.state.password}
-                                onChange={this.changeHadeler}>
+                                onChange={this.onChange}>
                             </input>
                             <button>Log in</button>
                         </LoginForm>
