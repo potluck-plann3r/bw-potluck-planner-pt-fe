@@ -1,12 +1,12 @@
-import {LOGIN_START, REGISTER, GETPOTLUCKS, SUCCESS, FAILURE} from '../actions'
+import {LOGIN_START, REGISTER, GETPOTLUCKS, SUCCESS, FAILURE, CREATE_POTLUCK} from '../actions'
 
 const initalState = {
     isLoggingIn: false,
     isRegistering: false,
     fetchingPotlucks: false,
-    potlucks: {},
+    addingPotluck: false,
+    potlucks: [],
     error: null
-
 }
 
  export const reducer = (state = initalState, action) =>{
@@ -30,6 +30,7 @@ const initalState = {
                 idRegistering: false,
             }
         case SUCCESS: 
+            console.log(action.payload)
             return{
                 ...state,
                 potlucks: action.payload,
@@ -40,6 +41,11 @@ const initalState = {
                 ...state,
                 fetchingPotlucks: false,
                 error: action.payload
+            }
+        case CREATE_POTLUCK:
+            return {
+                ...state,
+                addingPotluck: true,
             }
         default:
             return state;

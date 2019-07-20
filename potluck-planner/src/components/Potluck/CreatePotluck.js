@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {addPotluck} from '../../actions/index'
 
 class CreatePotluck extends React.Component{
     constructor(props){
@@ -6,21 +8,21 @@ class CreatePotluck extends React.Component{
         this.state = {
             newPotluck:{
                 locationName: '',
+                locationAddress: '',
                 locationStreet: '',
-                locationAdress: '',
-                locationUnit: '',
                 locationState: '',
                 locationCity: '',
                 locationCountry: '',
-                locatiionPostcode: ''
+                locationPostcode: ''
             }
         }
     }
 
     onChange = e =>{
         e.preventDefault();
-        this.setState({regData: {
-            ...this.state.regData,
+        console.log(e.target.value)
+        this.setState({newPotluck: {
+            ...this.state.newPotluck,
             [e.target.name]: e.target.value
         }})
     }
@@ -29,18 +31,33 @@ class CreatePotluck extends React.Component{
         this.props.history.push('/protected/potlucks')
     }
     
+    onSubmit = e =>{
+        let refreshInput = {
+            locationName: '',
+            locationAddress: '',
+            locationStreet: '',
+            locationState: '',
+            locationCity: '',
+            locationCountry: '',
+            locationPostcode: ''
+        }
+        e.preventDefault();
+        this.props.addPotluck(this.state.newPotluck);
+        this.setState({locationName:'', locationAddress: '', locationStreet: '', locationState: '', locationCity: '', locationCountry: '', locationPostcode: ''})
+    }
+
     render(){
         return(
             <div>
-                <form>
-                    <input placeholder='Event name' name='locationName' onChange={this.onChange}/>
-                    <h2>Adress</h2>
-                    <input placeholder='address number' name='locationAdress' onChange={this.onChange}/>
-                    <input placeholder='street' name='locationStreet' onChange={this.onChange}/>
-                    <input placeholder='unit' name='locationUnit' onChange={this.onChange}/>
-                    <input placeholder='city' name='locationCity' onChange={this.onChange} />
-                    <input placeholder='zip code' name='locationPostcode' onChange={this.onChange} />
-                    <input placeholder='state' name='locationState' onChange={this.onChange}/>
+                <form onSubmit={this.onSubmit}>
+                    <input type='text' placeholder='Event name' value={this.state.locationName} name='locationName' onChange={this.onChange}/>
+                    <h2>Address</h2>
+                    <input type='number' placeholder='address number' value={this.state.locationAddress} name='locationAddress' onChange={this.onChange}/>
+                    <input type='text' placeholder='street' value={this.state.locationStreet} name='locationStreet' onChange={this.onChange}/>
+                    <input type='text' placeholder='city' value={this.state.locationCity} name='locationCity' onChange={this.onChange} />
+                    <input type='text' placeholder='zip code' value={this.state.locationPostcode}name='locationPostcode' onChange={this.onChange} />
+                    <input type='text' placeholder='state' value={this.state.locationState} name='locationState' onChange={this.onChange}/>
+                    <input type='text' placeholder='country' value={this.state.locationCountry} name='locationCountry' onChange={this.onChange}/>
                     <div>
                         <button>Submit</button>
                         <button onClick={this.onCancel}>Cancel</button>
@@ -51,4 +68,4 @@ class CreatePotluck extends React.Component{
     }
 }
 
-export default CreatePotluck;
+export default connect(null,{addPotluck})(CreatePotluck);
