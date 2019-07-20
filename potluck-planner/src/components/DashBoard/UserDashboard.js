@@ -43,6 +43,7 @@ class UserDashboard extends React.Component{
         this.props.getPotlucks();
         this.props.history.push('/protected/potlucks')
     }
+    
 
     render(){
         if(this.props.fetchingPotlucks){
@@ -57,7 +58,7 @@ class UserDashboard extends React.Component{
                         <Link to='/protected/create-potluck'>Create Potluck</Link>
                     </HeaderDiv>
                     <PotluckDiv>
-                        <Route path='/protected/potlucks' component={PotluckCard}/>
+                        <Route exact path='/protected/potlucks' render={props => <PotluckCard {...props}/>}/>
                         <Route exact path='/protected/create-potluck' render={props => <CreatePotluck {...props}/>}/>
                     </PotluckDiv>
                 </Container>

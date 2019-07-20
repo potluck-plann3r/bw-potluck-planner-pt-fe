@@ -44,7 +44,7 @@ const initalState = {
         case CREATE_POTLUCK:
             return {
                 ...state,
-                addingPotluck: true
+                addingPotluck: true,
             }
         default:
             return state;
