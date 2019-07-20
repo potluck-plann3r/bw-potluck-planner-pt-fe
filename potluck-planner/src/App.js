@@ -1,27 +1,35 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Login from './components/Login/Login'
-import Registration from './components/Login/Registration'
-import UserDashboard from './components/DashBoard/UserDashboard'
-import PrivateRoute from './components/Login/PrivateRoute'
-const WithAuth = PrivateRoute(UserDashboard)
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import UserDashboard from './components/DashBoard/UserDashboard';
+import PrivateRoute from './components/Login/PrivateRoute';
+import NavBar from './components/NavBar';
+import './App.scss';
+import FrontPage from './components/FrontPage';
+const WithAuth = PrivateRoute(UserDashboard);
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {}
-  }
-
-  render(){
+class App extends React.Component {
+  render() {
     return (
       <Router>
-        <Route path='/login' component={Login} />
-        <Route path='/register' component={Registration}  />
-        <Route exact to='/protected' render={props => <WithAuth {...props}/>}/>
+        <Route path="/home" component={FrontPage} />
+        <Route path="/login" component={FrontPage} />
+        <Route path="/protected" component={FrontPage} />
+        <Route
+          exact
+          to="/protected"
+          render={props => <WithAuth {...props} />}
+        />
       </Router>
     );
   }
-  
 }
+
+const test = () => {
+  return (
+    <div>
+      <h1>Not AUTH</h1>
+    </div>
+  );
+};
 
 export default App;
