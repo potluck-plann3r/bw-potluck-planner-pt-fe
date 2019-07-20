@@ -41,7 +41,7 @@ class Login extends React.Component {
           <div className="image">
             <img src={img} />
           </div>
-          <form className="form" onSubmit={this.handleLogin.bind(this)}>
+          <form className="form" onSubmit={this.handleLogin}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <input

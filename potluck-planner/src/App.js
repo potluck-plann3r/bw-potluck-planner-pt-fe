@@ -5,6 +5,7 @@ import PrivateRoute from './components/Login/PrivateRoute';
 import NavBar from './components/NavBar';
 import './App.scss';
 import FrontPage from './components/FrontPage';
+import Login from './components/Login/Login'
 const WithAuth = PrivateRoute(UserDashboard);
 
 class App extends React.Component {
