@@ -19,8 +19,8 @@ class PotluckCard extends React.Component {
   }
 
   render() {
+    console.log(this.state.potlucks);
     if (this.props.potlucks === undefined) {
-      console.log(this.props);
       return <div>You dont have any potlucks currently</div>;
     }
     return (

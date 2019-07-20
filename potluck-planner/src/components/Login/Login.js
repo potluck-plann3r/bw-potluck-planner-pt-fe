@@ -73,10 +73,6 @@ class Login extends React.Component {
 }
 const LoginWithRouter = withRouter(Login);
 
-// export default connect(
-//   null,
-//   { login }
-// )(Login);
 export default connect(
   null,
   { login }
