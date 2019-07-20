@@ -20,9 +20,14 @@ class PotluckCard extends React.Component{
 
     render()
     {
-        if(this.props.potlucks !== [])
+        if(this.props.potlucks === undefined)
         {
-        
+            return(
+                <p>Nope</p>
+            )
+        }
+        else
+        {
             return(
                 <div>
                     {this.props.potlucks.map(potluck =>{

@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PotluckCard from '../Potluck/PotLuckCard'
-import CreatePotluck from '../Potluck/CreatePotluck'
+import PotluckCard from '../Potluck/PotLuckCard';
+import CreatePotluck from '../Potluck/CreatePotluck';
 import Styled from 'styled-components';
-import {getPotlucks} from '../../actions/index'
-import {Route, Link} from 'react-router-dom'
+import {getPotlucks} from '../../actions';
+import {Route, Link} from 'react-router-dom';
 
 //#region Styles
 const PotluckDiv = Styled.div`

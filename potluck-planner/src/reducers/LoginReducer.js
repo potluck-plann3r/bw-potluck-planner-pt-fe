@@ -30,6 +30,7 @@ const initalState = {
                 idRegistering: false,
             }
         case SUCCESS: 
+            console.log(action.payload)
             return{
                 ...state,
                 potlucks: action.payload,
