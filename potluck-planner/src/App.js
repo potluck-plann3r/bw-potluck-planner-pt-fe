@@ -14,7 +14,7 @@ class App extends React.Component {
       <Router>
         <Route path="/home" component={FrontPage} />
         <Route path="/login" component={FrontPage} />
-        <Route path="/protected" component={FrontPage} />
+        <Route path="/protected" component={test} />
         <Route
           exact
           to="/protected"

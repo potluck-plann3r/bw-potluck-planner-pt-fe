@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { login } from '../../actions';
 import img from '../img/undraw_eating_together_tjhx.svg';
 import '../Login/index.scss';
+import { withRouter } from 'react-router';
 
 class Login extends React.Component {
   constructor(props) {
@@ -70,8 +71,9 @@ class Login extends React.Component {
     );
   }
 }
+const LoginWithRouter = withRouter(Login);
 
 export default connect(
   null,
   { login }
-)(Login);
+)(LoginWithRouter);

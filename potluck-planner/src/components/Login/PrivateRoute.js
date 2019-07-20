@@ -8,8 +8,7 @@ const PrivateRoute = Component => {
         return <Component {...this.props} />;
       } else {
         console.log('redirect to Login');
-          return <Redirect to='/home' />
-       // return <Redirect to="protected" />;
+        return <Redirect to="/login" />;
       }
     }
   };
