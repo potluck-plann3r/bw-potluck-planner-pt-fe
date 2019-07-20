@@ -49,5 +49,5 @@ const initalState = {
             }
         default:
             return state;
-     }
- }
+    }
+}

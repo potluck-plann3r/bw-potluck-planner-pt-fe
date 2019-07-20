@@ -22,6 +22,7 @@ class PotluckCard extends React.Component{
     {
         if(this.props.potlucks === undefined)
         {
+            console.log(this.props)
             return(
                 <p>Nope</p>
             )
@@ -45,7 +46,6 @@ class PotluckCard extends React.Component{
                 </div>
             )
         }
-        
     }
 }
 
