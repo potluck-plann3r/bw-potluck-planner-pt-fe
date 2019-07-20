@@ -25,7 +25,7 @@ export const register = regObj => dispatch => {
 
 export const getPotlucks = () => dispatch => {
   dispatch({ type: GETPOTLUCKS });
-  axios
+  return axios
     .get('https://potluck-plann3r.herokuapp.com/api/potlucks/', {
       headers: { authorization: localStorage.getItem('token') }
     })

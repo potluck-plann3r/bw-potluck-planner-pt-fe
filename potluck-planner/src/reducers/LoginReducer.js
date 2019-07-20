@@ -4,7 +4,8 @@ const initalState = {
     isLoggingIn: false,
     isRegistering: false,
     fetchingPotlucks: false,
-    potlucks: {},
+    gotPotlucks: false,
+    potlucks: ,
     error: null
 
 }
@@ -33,7 +34,8 @@ const initalState = {
             return{
                 ...state,
                 potlucks: action.payload,
-                fetchingPotlucks: false
+                fetchingPotlucks: false,
+                gotPotlucks: true
             }
         case FAILURE:
             return{

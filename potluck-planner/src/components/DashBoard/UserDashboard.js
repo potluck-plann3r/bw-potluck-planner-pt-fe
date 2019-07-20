@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import PotluckCard from '../Potluck/PotLuckCard'
 import CreatePotluck from '../Potluck/CreatePotluck'
 import Styled from 'styled-components';
-import {getPotlucks} from '../../actions/index'
+import {getPotlucks} from '../../actions'
 import {Route, Link} from 'react-router-dom'
+import { withRouter } from 'react-router';
 
 //#region Styles
 const PotluckDiv = Styled.div`
@@ -23,7 +24,6 @@ const HeaderDiv = Styled.div`
     height: 10vh;
     background-color: green;
 `
-
 //#endregion
 
 class UserDashboard extends React.Component{
@@ -41,7 +41,16 @@ class UserDashboard extends React.Component{
 
     componentDidMount(){
         this.props.getPotlucks();
+        
         this.props.history.push('/protected/potlucks')
+    } 
+
+    componentDidUpdate(){
+        console.log(this.props.gotPotlucks)
+        if(this.props.gotPotlucks)
+        {
+            console.log(this.props.potlucks)
+        }
     }
 
     render(){
@@ -57,7 +66,12 @@ class UserDashboard extends React.Component{
                         <Link to='/protected/create-potluck'>Create Potluck</Link>
                     </HeaderDiv>
                     <PotluckDiv>
-                        <Route path='/protected/potlucks' component={PotluckCard}/>
+                        {this.props.potlucks.map(potluck => {
+                            return(
+                                <PotluckCard potluck={potluck}/>
+                            )
+                        })}
+                        {/* <Route path='/protected/potlucks' component={PotluckCard}/> */}
                         <Route exact path='/protected/create-potluck' render={props => <CreatePotluck {...props}/>}/>
                     </PotluckDiv>
                 </Container>
@@ -69,9 +83,11 @@ class UserDashboard extends React.Component{
 const mapStateToProps = state =>({
     potlucks: state.potlucks,
     error: state.error,
-    fetchingPotlucks: state.fetchingPotlucks
-
+    fetchingPotlucks: state.fetchingPotlucks,
+    gotPotlucks: state.gotPotlucks
 })
+
+//const WithRouter = withRouter(UserDashboard)
 
 export default connect(
     mapStateToProps,
