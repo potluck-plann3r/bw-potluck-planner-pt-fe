@@ -14,7 +14,7 @@ class PotluckCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            potlucks: {}
+            potlucks: []
         }
     }
 

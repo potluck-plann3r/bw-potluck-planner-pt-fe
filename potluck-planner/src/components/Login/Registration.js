@@ -63,7 +63,6 @@ class Registration extends React.Component {
                         name='firstName'
                         value={this.state.username}
                         onChange={this.onChange}/>
-
                     <input type='text'
                         placeholder='Last name'
                         name='lastName'
@@ -73,9 +72,7 @@ class Registration extends React.Component {
                         placeholder='Password'
                         name='password'
                         value={this.state.password}
-                        onChange={this.onChange}
-                       />
-
+                        onChange={this.onChange}/>
                     <input type='text'
                         placeholder='E-mail'
                         name='email'
