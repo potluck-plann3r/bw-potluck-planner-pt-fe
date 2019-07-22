@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import UserDashboard from './components/DashBoard/UserDashboard';
 import PrivateRoute from './components/Login/PrivateRoute';
-import NavBar from './components/NavBar';
 import './App.scss';
 import FrontPage from './components/FrontPage';
+import CreatePotluck from './components/Potluck/CreatePotluck';
+
 const WithAuth = PrivateRoute(UserDashboard);
 
 class App extends React.Component {
@@ -13,23 +14,15 @@ class App extends React.Component {
       <Router>
         <Route path="/home" component={FrontPage} />
         <Route path="/login" component={FrontPage} />
-        <Route path="/protected" component={test} />
         <Route
           exact
           to="/protected"
           render={props => <WithAuth {...props} />}
         />
+        {/* <Route path="/protected" component={CreatePotluck} /> */}
       </Router>
     );
   }
 }
-
-const test = () => {
-  return (
-    <div>
-      <h1>Not AUTH</h1>
-    </div>
-  );
-};
 
 export default App;

@@ -39,7 +39,7 @@ class Login extends React.Component {
         <div className="header">Login</div>
         <div className="content">
           <div className="image">
-            <img src={img} />
+            <img alt="fun" src={img} />
           </div>
           <form className="form" onSubmit={this.handleLogin.bind(this)}>
             <div className="form-group">
