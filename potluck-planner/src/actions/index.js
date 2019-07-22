@@ -26,11 +26,11 @@ export const register = regObj => dispatch => {
 export const getPotlucks = () => dispatch => {
   dispatch({ type: GETPOTLUCKS });
   axios
-    .get('https://potluck-plann3r.herokuapp.com/api/potlucks/', {
+    .get('https://potluck-plann3r.herokuapp.com/api/potlucks', {
       headers: { authorization: localStorage.getItem('token') }
     })
     .then(res => {
-      console.log(res.data);
+      console.log(res);
       dispatch({ type: SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -40,11 +40,15 @@ export const getPotlucks = () => dispatch => {
 };
 
 export const addPotluck = newPotluck => dispatch => {
+  console.log(newPotluck, 'blah');
   dispatch({ type: CREATE_POTLUCK });
-  return axios
+  axios
     .post('https://potluck-plann3r.herokuapp.com/api/potlucks', newPotluck, {
       headers: { authorization: localStorage.getItem('token') }
     })
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res);
+      dispatch({ type: SUCCESS, payload: res.data });
+    })
     .catch(err => console.log(err));
 };
