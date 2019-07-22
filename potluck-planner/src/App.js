@@ -6,6 +6,8 @@ import './App.scss';
 import FrontPage from './components/FrontPage';
 import CreatePotluck from './components/Potluck/CreatePotluck';
 
+import Login from './components/Login/Login';
+
 const WithAuth = PrivateRoute(UserDashboard);
 
 class App extends React.Component {
