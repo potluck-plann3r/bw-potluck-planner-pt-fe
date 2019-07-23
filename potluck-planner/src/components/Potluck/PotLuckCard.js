@@ -1,6 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
+import { getPotlucks } from '../../actions/index';
 //#region Styled components
 const CardDiv = Styled.div`
     background-color: green;
@@ -19,7 +20,7 @@ class PotluckCard extends React.Component {
   }
 
   render() {
-    // console.log(this.props.potlucks);
+    console.log(this.props.potlucks);
     if (this.props.potlucks === undefined) {
       return <div>You dont have any potlucks currently</div>;
     }
@@ -30,7 +31,7 @@ class PotluckCard extends React.Component {
             <CardDiv>
               <h1>{potluck.locationName}</h1>
               <adress>
-                <h3>Location </h3>
+                <h3>Location</h3>
                 <p>
                   {potluck.locationAddress} {potluck.locationStreet} Unit:{' '}
                   {potluck.locationUnit}
@@ -49,7 +50,7 @@ class PotluckCard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  potlucks: state.potlucks
+  potlucks: state.reducer.potlucks
 });
 
 export default connect(

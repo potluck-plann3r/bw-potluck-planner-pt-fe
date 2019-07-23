@@ -11,7 +11,10 @@ export const login = creds => dispatch => {
   dispatch({ type: LOGIN_START });
   return axios
     .post('https://potluck-plann3r.herokuapp.com/api/auth/login', creds)
-    .then(res => localStorage.setItem('token', res.data.authToken))
+    .then(res => {
+      localStorage.setItem('token', res.data.authToken);
+      window.alert(res.data.message);
+    })
     .catch(err => console.log(err));
 };
 
