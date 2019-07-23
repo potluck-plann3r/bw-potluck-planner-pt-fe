@@ -9,10 +9,6 @@ import '../App.scss';
 const WithAuth = PrivateRoute(UserDashboard);
 
 class FrontPage extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +50,7 @@ class FrontPage extends React.Component {
           <div className="login">
             <div className="container" ref={ref => (this.container = ref)}>
               {isLogginActive &&
-                (<Route path="/login" component={Login} />,
+                (<Route exact path="/login" component={Login} />,
                 <Login containerRef={ref => (this.current = ref)} />)}
               {!isLogginActive &&
                 (<Route path="/register" component={Registration} />,

@@ -47,7 +47,6 @@ export const reducer = (state = initalState, action) => {
         fetchingPotlucks: false
       };
 
-
     case SUCCESS:
       return {
         ...state,
