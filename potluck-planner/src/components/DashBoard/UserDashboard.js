@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PotluckCard from '../Potluck/PotLuckCard';
 import CreatePotluck from '../Potluck/CreatePotluck';
 import Styled from 'styled-components';
+
 import { getPotlucks, addPotluck } from '../../actions/index';
 import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -34,10 +35,11 @@ class UserDashboard extends React.Component {
   }
 
   onLogOut = () => {
-    console.log('Loggin out');
+    window.alert('Loggin out');
     localStorage.removeItem('token');
     this.props.history.push('/login');
   };
+
 
   componentDidMount() {
     this.props.getPotlucks();
@@ -52,12 +54,16 @@ class UserDashboard extends React.Component {
         <Container>
           <HeaderDiv>
             <button onClick={this.onLogOut}>Log out</button>
-            <Link to="/protected/create-potluck">Create Potluck</Link>
+            <Link to="/protected/create-potlucks">Create Potluck</Link>
           </HeaderDiv>
           <PotluckDiv>
-          <Route
+
+            <div>{console.log(this.props)}</div>
+            <Route path="/protected/potlucks" component={PotluckCard} />
+
+            <Route
               exact
-              path="/protected/potlucks"
+              path="/protected/create-potlucks"
               render={props => (
                 <PotluckCard potlucks={this.props.potlucks} {...props} />
               )}
@@ -77,11 +83,13 @@ class UserDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  potlucks: state.potlucks,
-  error: state.error,
-  fetchingPotlucks: state.fetchingPotlucks
+  potlucks: state.reducer.potlucks,
+  error: state.reducer.error,
+  fetchingPotlucks: state.reducer.fetchingPotlucks
 });
 const SignOutWithRouter = withRouter(UserDashboard);
+
+//const WithRouter = withRouter(UserDashboard)
 
 export default connect(
   mapStateToProps,

@@ -1,6 +1,8 @@
 import React from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router';
+
 //#region Styled components
 const CardDiv = Styled.div`
     background-color: green;
@@ -29,7 +31,7 @@ class PotluckCard extends React.Component {
             <CardDiv>
               <h1>{potluck.locationName}</h1>
               <adress>
-                <h3>Location </h3>
+                <h3>Location</h3>
                 <p>
                   {potluck.locationAddress} {potluck.locationStreet} Unit:{' '}
                   {potluck.locationUnit}
@@ -47,13 +49,14 @@ class PotluckCard extends React.Component {
   }
 }
 
-export default PotluckCard
+const mapStateToProps = state => ({
+  potlucks: state.reducer.potlucks
+});
 
-// const mapStateToProps = state => ({
-//   potlucks: state.potlucks
-// });
+const WithRouter = withRouter(PotluckCard)
 
-// export default connect(
-//   null,
-//   {}
-// )(PotluckCard);
+export default connect(
+  mapStateToProps,
+  {}
+)(PotluckCard);
+
