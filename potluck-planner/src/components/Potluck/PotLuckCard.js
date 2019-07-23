@@ -14,12 +14,11 @@ class PotluckCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      potlucks: {}
     };
   }
 
   render() {
-    // console.log(this.props.potlucks);
+    console.log(this.props.potlucks);
     if (this.props.potlucks === undefined) {
       return <div>You dont have any potlucks currently</div>;
     }
@@ -48,11 +47,13 @@ class PotluckCard extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  potlucks: state.potlucks
-});
+export default PotluckCard
 
-export default connect(
-  mapStateToProps,
-  {}
-)(PotluckCard);
+// const mapStateToProps = state => ({
+//   potlucks: state.potlucks
+// });
+
+// export default connect(
+//   null,
+//   {}
+// )(PotluckCard);

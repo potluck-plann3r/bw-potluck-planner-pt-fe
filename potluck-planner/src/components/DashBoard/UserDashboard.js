@@ -55,10 +55,16 @@ class UserDashboard extends React.Component {
             <Link to="/protected/create-potluck">Create Potluck</Link>
           </HeaderDiv>
           <PotluckDiv>
-            <Route path="/protected/create-potluck" component={PotluckCard} />
-            <Route
+          <Route
               exact
               path="/protected/potlucks"
+              render={props => (
+                <PotluckCard potlucks={this.props.potlucks} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/protected/create-potluck"
               render={props => (
                 <CreatePotluck addPotluck={this.props.addPotluck} {...props} />
               )}
