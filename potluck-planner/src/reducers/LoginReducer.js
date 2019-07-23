@@ -32,17 +32,20 @@ export const reducer = (state = initalState, action) => {
     case GETPOTLUCKS:
       return {
         ...state,
+        potlucks: action.payload,
         fetchingPotlucks: true,
         isLoggingIn: false,
-        idRegistering: false
+        isRegistering: false
       };
     case CREATE_POTLUCK:
       return {
         ...state,
         addingPotlucks: true,
         isLoggingIn: false,
-        idRegistering: false
+        isRegistering: false,
+        fetchingPotlucks: false
       };
+
     case SUCCESS:
       return {
         ...state,

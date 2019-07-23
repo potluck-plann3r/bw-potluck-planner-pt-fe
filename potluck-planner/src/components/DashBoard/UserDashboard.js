@@ -34,7 +34,7 @@ class UserDashboard extends React.Component {
   }
 
   onLogOut = () => {
-    console.log('Loggin out');
+    window.alert('Loggin out');
     localStorage.removeItem('token');
     this.props.history.push('/login');
   };
@@ -52,13 +52,15 @@ class UserDashboard extends React.Component {
         <Container>
           <HeaderDiv>
             <button onClick={this.onLogOut}>Log out</button>
-            <Link to="/protected/create-potluck">Create Potluck</Link>
+            <Link to="/protected/create-potlucks">Create Potluck</Link>
           </HeaderDiv>
           <PotluckDiv>
-            <Route path="/protected/create-potluck" component={PotluckCard} />
+            <div>{console.log(this.props)}</div>
+            <Route path="/protected/potlucks" component={PotluckCard} />
+
             <Route
               exact
-              path="/protected/potlucks"
+              path="/protected/create-potlucks"
               render={props => (
                 <CreatePotluck addPotluck={this.props.addPotluck} {...props} />
               )}
@@ -71,9 +73,9 @@ class UserDashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  potlucks: state.potlucks,
-  error: state.error,
-  fetchingPotlucks: state.fetchingPotlucks
+  potlucks: state.reducer.potlucks,
+  error: state.reducer.error,
+  fetchingPotlucks: state.reducer.fetchingPotlucks
 });
 const SignOutWithRouter = withRouter(UserDashboard);
 

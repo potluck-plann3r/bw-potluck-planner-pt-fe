@@ -1,12 +1,12 @@
 import React from 'react';
-import { addPotluck } from '../../actions/index';
+
 class CreatePotluck extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       locationName: '',
       locationStreet: '',
-      locationAdress: 0,
+      locationAddress: 0,
       locationUnit: '',
       locationState: '',
       locationCity: '',
@@ -47,7 +47,7 @@ class CreatePotluck extends React.Component {
             placeholder="address number"
             name="locationAdress"
             onChange={this.onChange}
-            value={this.state.locationAdress}
+            value={this.state.locationAddress}
           />
           <input
             placeholder="street"
