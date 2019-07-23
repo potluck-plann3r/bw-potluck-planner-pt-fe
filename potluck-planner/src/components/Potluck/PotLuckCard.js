@@ -1,7 +1,9 @@
 import React from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router';
 import { getPotlucks } from '../../actions/index';
+
 //#region Styled components
 const CardDiv = Styled.div`
     background-color: green;
@@ -15,11 +17,11 @@ class PotluckCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      potlucks: {}
     };
   }
 
   render() {
+
     console.log(this.props.potlucks);
     if (this.props.potlucks === undefined) {
       return <div>You dont have any potlucks currently</div>;
@@ -52,6 +54,8 @@ class PotluckCard extends React.Component {
 const mapStateToProps = state => ({
   potlucks: state.reducer.potlucks
 });
+
+const WithRouter = withRouter(PotluckCard)
 
 export default connect(
   mapStateToProps,

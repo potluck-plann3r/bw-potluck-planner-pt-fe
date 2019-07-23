@@ -8,6 +8,7 @@ import {
 } from '../actions';
 
 const initalState = {
+
   isLoggingIn: false,
   isRegistering: false,
   fetchingPotlucks: false,
@@ -45,6 +46,7 @@ export const reducer = (state = initalState, action) => {
         isRegistering: false,
         fetchingPotlucks: false
       };
+
 
     case SUCCESS:
       return {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PotluckCard from '../Potluck/PotLuckCard';
 import CreatePotluck from '../Potluck/CreatePotluck';
 import Styled from 'styled-components';
+
 import { getPotlucks, addPotluck } from '../../actions/index';
 import { Route, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -38,6 +39,7 @@ class UserDashboard extends React.Component {
     localStorage.removeItem('token');
     this.props.history.push('/login');
   };
+
 
   componentDidMount() {
     this.props.getPotlucks();
@@ -78,6 +80,8 @@ const mapStateToProps = state => ({
   fetchingPotlucks: state.reducer.fetchingPotlucks
 });
 const SignOutWithRouter = withRouter(UserDashboard);
+
+//const WithRouter = withRouter(UserDashboard)
 
 export default connect(
   mapStateToProps,
