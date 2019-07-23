@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { register } from '../../actions';
 import img from '../img/undraw_tasting_de22.svg';
 import './index.scss';
+import { withRouter } from 'react-router';
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -51,7 +52,7 @@ class Registration extends React.Component {
       Email: ${this.state.email}
       Password: ${this.state.password}
     `);
-      alert('Account Created');
+      window.alert('Account Created');
     } else {
       console.error('FORM INVALID - DISPLAY ERROR MESSAGE');
     }
@@ -61,7 +62,6 @@ class Registration extends React.Component {
     e.preventDefault();
     const { name, value } = e.target;
     let formErrors = { ...this.state.formErrors };
-    let testing = { ...this.state.regData };
     switch (name) {
       case 'firstName':
         formErrors.firstName =
@@ -102,7 +102,7 @@ class Registration extends React.Component {
         <h1 className="header">Create Account</h1>
         <div className="content">
           <div className="image">
-            <img src={img} />
+            <img alt="img" src={img} />
           </div>
           <form className="form" onSubmit={this.handleSubmit} noValidate>
             <div className="firstName form-group">
@@ -172,10 +172,10 @@ class Registration extends React.Component {
     );
   }
 }
-
+const SignUpWithRouter = withRouter(Registration);
 export default connect(
   null,
   {
     register
   }
-)(Registration);
+)(SignUpWithRouter);

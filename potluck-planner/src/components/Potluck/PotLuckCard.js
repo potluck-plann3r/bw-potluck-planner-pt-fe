@@ -2,6 +2,8 @@ import React from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router';
+import { getPotlucks } from '../../actions/index';
+
 //#region Styled components
 const CardDiv = Styled.div`
     background-color: green;
@@ -19,33 +21,38 @@ class PotluckCard extends React.Component {
   }
 
   render() {
-    console.log('Your potlucks' + this.state.potlucks);
+
+    console.log(this.props.potlucks);
     if (this.props.potlucks === undefined) {
       return <div>You dont have any potlucks currently</div>;
     }
     return (
       <div>
-        <CardDiv>
-            <h1>{this.props.potluck.locationName}</h1>
-            <adress>
-            <h3>Location </h3>
-            <p>
-                {this.props.potluck.locationAddress} {this.props.potluck.locationStreet} Unit:{' '}
-                {this.props.potluck.locationUnit}
-            </p>
-            <p>
-                {this.props.potluck.locationCity}, {this.props.potluck.locationState}{' '}
-                {this.props.potluck.locationCountry}
-            </p>
-            </adress>
-        </CardDiv>
+        {this.props.potlucks.map(potluck => {
+          return (
+            <CardDiv>
+              <h1>{potluck.locationName}</h1>
+              <adress>
+                <h3>Location</h3>
+                <p>
+                  {potluck.locationAddress} {potluck.locationStreet} Unit:{' '}
+                  {potluck.locationUnit}
+                </p>
+                <p>
+                  {potluck.locationCity}, {potluck.locationState}{' '}
+                  {potluck.locationCountry}
+                </p>
+              </adress>
+            </CardDiv>
+          );
+        })}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  potlucks: state.potlucks
+  potlucks: state.reducer.potlucks
 });
 
 const WithRouter = withRouter(PotluckCard)
