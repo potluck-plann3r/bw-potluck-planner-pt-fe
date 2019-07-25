@@ -4,7 +4,10 @@ import {
   GETPOTLUCKS,
   SUCCESS,
   FAILURE,
-  CREATE_POTLUCK
+  CREATE_POTLUCK,
+  DELETE_POTLUCK,
+  SUCCESS_DELETE_POTLUCK,
+  FAILURE_DELETE_POTLUCK
 } from '../actions';
 
 const initalState = {
@@ -14,7 +17,8 @@ const initalState = {
   fetchingPotlucks: false,
   potlucks: [],
   error: null,
-  addingPotlucks: false
+  addingPotlucks: false,
+  deletingPotluck: false,
 };
 
 export const reducer = (state = initalState, action) => {
@@ -46,7 +50,6 @@ export const reducer = (state = initalState, action) => {
         isRegistering: false,
         fetchingPotlucks: false
       };
-
     case SUCCESS:
       return {
         ...state,
@@ -59,6 +62,25 @@ export const reducer = (state = initalState, action) => {
         fetchingPotlucks: false,
         error: action.payload
       };
+
+    case DELETE_POTLUCK:
+      return{
+        ...state,
+        deletingPotluck: true
+      }
+
+    case SUCCESS_DELETE_POTLUCK:
+      return{
+        ...state,
+        deletingPotluck: false
+      }
+
+    case FAILURE_DELETE_POTLUCK:
+      return{
+        ...state,
+        err: action.payload,
+        deletingPotluck: false
+      }
     default:
       return state;
   }

@@ -61,8 +61,13 @@ class UserDashboard extends React.Component {
       return (
         <div className='Container'>
           <div className='Header'>
-            <button onClick={this.onLogOut}>Log out</button>
-            <Link to="/protected/create-potlucks">Create Potluck</Link>
+            <div>
+              <Link className='Links' to="/protected/potlucks">All Potluck</Link>
+              <Link to="/protected/create-potlucks">Create Potluck</Link>
+              <button onClick={this.onLogOut}>Log out</button>
+            </div>
+            
+            
           </div>
           <div className='Potluck'>
             <div>{console.log(this.props)}</div>

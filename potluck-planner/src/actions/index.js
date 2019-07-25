@@ -56,3 +56,34 @@ export const addPotluck = newPotluck => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+/* -----------------------------------------------DELETE POTLUCK------------------------------------------------------------*/
+
+export const DELETE_POTLUCK = 'DELETE_POTLUCK';
+export const SUCCESS_DELETE_POTLUCK = 'SUCCESS_DELETE_POTLUCK';
+export const FAILURE_DELETE_POTLUCK = 'FAILURE_DELETE_POTLUCK';
+
+export const deletePotluck = id => dispatch => {
+  dispatch({type: DELETE_POTLUCK});
+  axios
+    .delete(`https://potluck-plann3r.herokuapp.com/api/potlucks/${id}`,
+    { headers: { authorization: localStorage.getItem('token') } })
+    .then(res => {
+      console.log('Deleted Potluck: ' + res);
+      dispatch({type: SUCCESS_DELETE_POTLUCK, payload: res})
+    })
+    //.then(getPotlucks())
+    .catch(err => {
+      console.log(err)
+      dispatch({type: FAILURE_DELETE_POTLUCK, payload: err})
+    })
+} 
+
+export const INVITE_GUEST = 'INVITE_GUEST';
+export const SUCCESS_INVITE_GUEST = 'SUCCESS_INVITE_GUEST';
+export const FAILURE_INVITE_GUEST = 'FAILURE_INVITE_GUEST';
+
+export const inviteGuest = invitation => dispatch =>      {
+
+}
+
