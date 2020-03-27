@@ -8,10 +8,11 @@ export const FAILURE = "FAILURE";
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
 const devURL = process.env.DEV_URL;
+
 export const login = creds => dispatch => {
 	dispatch({ type: LOGIN_START });
 	return axios
-		.post(`${devURL}/api/auth/login`, creds)
+		.post(`http://localhost:5000/api/auth/login`, creds)
 		.then(res => {
 			localStorage.setItem("token", res.data.authToken);
 			window.alert(res.data.message);
