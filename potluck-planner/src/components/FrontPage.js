@@ -1,95 +1,29 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Login from '../components/Login/Login';
-import Registration from '../components/Login/Registration';
-import UserDashboard from '../components/DashBoard/UserDashboard';
-import PrivateRoute from '../components/Login/PrivateRoute';
-import NavBar from '../components/NavBar';
-import '../App.scss';
-const WithAuth = PrivateRoute(UserDashboard);
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { Route } from "react-router-dom";
+import Registration from "../components/Login/Registration";
+import Login from "../components/Login/Login";
 
 class FrontPage extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLogginActive: false
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+	componentDidMount() {
+		this.props.history.push("/login");
+	}
 
-  componentDidMount() {
-    //Add .right by default
-    this.rightSide.classList.add('right');
-  }
-
-  changeState() {
-    const { isLogginActive } = this.state;
-
-    if (isLogginActive) {
-      this.rightSide.classList.remove('right');
-      this.rightSide.classList.add('left');
-    } else {
-      this.rightSide.classList.remove('left');
-      this.rightSide.classList.add('right');
-    }
-    this.setState(prevState => ({ isLogginActive: !prevState.isLogginActive }));
-  }
-
-  render() {
-    const { isLogginActive } = this.state;
-    const current = isLogginActive ? 'Register' : 'Login';
-    const currentActive = isLogginActive ? 'Login' : 'Register';
-    return (
-      <Router>
-        <NavBar
-          current={current}
-          currentActive={currentActive}
-          containerRef={ref => (this.rightSide = ref)}
-          onClick={this.changeState.bind(this)}
-        />
-        <div className="App">
-          <div className="login">
-            <div className="container" ref={ref => (this.container = ref)}>
-              {isLogginActive &&
-                (<Route path="/login" component={Login} />,
-                <Login containerRef={ref => (this.current = ref)} />)}
-              {!isLogginActive &&
-                (<Route path="/register" component={Registration} />,
-                <Registration containerRef={ref => (this.current = ref)} />)}
-            </div>
-            <RightSide
-              current={current}
-              currentActive={currentActive}
-              containerRef={ref => (this.rightSide = ref)}
-              onClick={this.changeState.bind(this)}
-            />
-          </div>
-        </div>
-        <Route
-          exact
-          to="/protected"
-          render={props => <WithAuth {...props} />}
-        />
-      </Router>
-    );
-  }
+	render() {
+		return (
+			<>
+				<Route exact path="/login" component={Login} />
+				<Route exact path="/register" component={Registration} />
+			</>
+		);
+	}
 }
 
-const RightSide = props => {
-  return (
-    <div
-      className="right-side"
-      ref={props.containerRef}
-      onClick={props.onClick}
-    >
-      <div className="inner-container">
-        <div className="text">{props.current}</div>
-      </div>
-    </div>
-  );
-};
+const FrontPageWithRouter = withRouter(FrontPage);
 
-export default FrontPage;
+export default connect(null)(FrontPageWithRouter);

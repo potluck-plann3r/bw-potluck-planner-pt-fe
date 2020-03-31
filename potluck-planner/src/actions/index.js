@@ -10,6 +10,7 @@ export const CREATE_POTLUCK = "CREATE_POTLUCK";
 const devURL = process.env.DEV_URL;
 
 export const login = creds => dispatch => {
+	window.alert("Logging in");
 	dispatch({ type: LOGIN_START });
 	return axios
 		.post(`http://localhost:5000/api/auth/login`, creds)
@@ -23,7 +24,7 @@ export const login = creds => dispatch => {
 export const register = regObj => dispatch => {
 	dispatch({ type: REGISTER });
 	return axios
-		.post(`${devURL}/api/auth/register`, regObj)
+		.post(`http://localhost:5000/api/auth/register`, regObj)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
@@ -32,7 +33,7 @@ export const getPotlucks = () => dispatch => {
 	dispatch({ type: GETPOTLUCKS });
 
 	axios
-		.get(`${devURL}/api/potlucks`, {
+		.get(`http://localhost:5000/api/potlucks`, {
 			headers: { authorization: localStorage.getItem("token") },
 		})
 		.then(res => {

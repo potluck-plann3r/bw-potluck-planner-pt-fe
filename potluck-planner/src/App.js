@@ -1,24 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import UserDashboard from "./components/DashBoard/UserDashboard";
 import PrivateRoute from "./components/Login/PrivateRoute";
-import "./App.scss";
+import UserDashboard from "./components/DashBoard/UserDashboard";
 import FrontPage from "./components/FrontPage";
+import "./App.scss";
 
-const WithAuth = PrivateRoute(UserDashboard);
+const WithAuth = PrivateRoute(FrontPage)(UserDashboard);
 
 class App extends React.Component {
 	render() {
 		return (
 			<Router>
-				<Route path="/home" component={FrontPage} />
-				<Route path="/login" component={FrontPage} />
-				<Route
-					exact
-					to="/protected"
-					render={props => <WithAuth {...props} />}
-				/>
-				{/* <Route path="/protected" component={CreatePotluck} /> */}
+				<Route to="/" render={props => <WithAuth {...props} />} />
 			</Router>
 		);
 	}
