@@ -50,8 +50,8 @@ export const addPotluck = newPotluck => dispatch => {
 	console.log(newPotluck, "blah");
 	dispatch({ type: CREATE_POTLUCK });
 	axios
-		.post(`${devURL}/api/potlucks`, newPotluck, {
-			headers: { authorization: localStorage.getItem("token") },
+		.post(`http://localhost:5000/api/potlucks`, newPotluck, {
+			headers: { auth: localStorage.getItem("token") },
 		})
 		.then(res => {
 			console.log(res);
