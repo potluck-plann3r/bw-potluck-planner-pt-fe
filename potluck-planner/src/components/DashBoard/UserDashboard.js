@@ -5,7 +5,7 @@ import CreatePotluck from "../Potluck/CreatePotluck";
 import Styled from "styled-components";
 
 import { getPotlucks, addPotluck } from "../../actions/index";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
 
 //#region Styles
@@ -52,6 +52,7 @@ class UserDashboard extends React.Component {
 				<Container>
 					<HeaderDiv>
 						<button onClick={this.onLogOut}>Log out</button>
+						<NavLink to="/protected/potlucks">My Potlucks</NavLink>
 						<Link to="/protected/create-potlucks">
 							Create Potluck
 						</Link>
