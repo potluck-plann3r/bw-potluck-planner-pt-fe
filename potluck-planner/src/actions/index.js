@@ -34,14 +34,14 @@ export const getPotlucks = () => dispatch => {
 
 	axios
 		.get(`http://localhost:5000/api/potlucks`, {
-			headers: { authorization: localStorage.getItem("token") },
+			headers: { auth: localStorage.getItem("token") },
 		})
 		.then(res => {
 			console.log(res);
 			dispatch({ type: SUCCESS, payload: res.data });
 		})
 		.catch(err => {
-			console.log("This is actualy the error" + err);
+			console.log("This is actually the error" + err);
 			dispatch({ type: FAILURE, payload: err });
 		});
 };
