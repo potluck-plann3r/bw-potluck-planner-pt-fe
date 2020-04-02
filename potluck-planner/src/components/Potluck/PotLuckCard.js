@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { getPotlucks } from "../../actions/index";
+import { getPotluckById } from "../../actions/index";
 
 //#region Styled components
 const CardDiv = Styled.div`
@@ -19,6 +20,11 @@ class PotluckCard extends React.Component {
 		this.state = {};
 	}
 
+	onSelect = e => {
+		let selectId = e.currentTarget.id;
+		this.props.history.push(`/protected/view-potluck/${selectId}`);
+	};
+
 	render() {
 		console.log(this.props.potlucks);
 		if (this.props.potlucks === undefined) {
@@ -27,8 +33,9 @@ class PotluckCard extends React.Component {
 		return (
 			<div>
 				{this.props.potlucks.map(potluck => {
+					console.log(potluck.id);
 					return (
-						<CardDiv>
+						<CardDiv id={potluck.potluckId} onClick={this.onSelect}>
 							<h1>{potluck.locationName}</h1>
 							<address>
 								<h3>Location</h3>
@@ -57,4 +64,6 @@ const mapStateToProps = state => ({
 
 const PotluckCardWithRouter = withRouter(PotluckCard);
 
-export default connect(mapStateToProps, { getPotlucks })(PotluckCardWithRouter);
+export default connect(mapStateToProps, { getPotlucks, getPotluckById })(
+	PotluckCardWithRouter
+);

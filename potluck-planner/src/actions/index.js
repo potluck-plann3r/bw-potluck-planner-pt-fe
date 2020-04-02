@@ -5,6 +5,9 @@ export const LOGOUT = "LOGOUT";
 export const GETPOTLUCKS = "GETPOTLUCKS";
 export const SUCCESS = "SUCCESS";
 export const FAILURE = "FAILURE";
+export const GETPOTLUCKBYID = "GETPOTLUCKBYID";
+export const GETPOTLUCKSBYIDSUCCESS = "GETPOTLUCKSBYIDSUCCESS";
+export const GETPOTLUCKSBYIDFAILURE = "GETPOTLUCKSBYIDFAILURE";
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
 const devURL = process.env.DEV_URL;
@@ -43,6 +46,23 @@ export const getPotlucks = () => dispatch => {
 		.catch(err => {
 			console.log("This is actually the error" + err);
 			dispatch({ type: FAILURE, payload: err });
+		});
+};
+
+export const getPotluckById = id => dispatch => {
+	dispatch({ type: GETPOTLUCKBYID });
+
+	axios
+		.get(`http://localhost:5000/api/potlucks/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then(res => {
+			console.log(res);
+			dispatch({ type: GETPOTLUCKSBYIDSUCCESS, payload: res.data });
+		})
+		.catch(err => {
+			console.log("This is actually the error" + err);
+			dispatch({ type: GETPOTLUCKSBYIDFAILURE, payload: err });
 		});
 };
 

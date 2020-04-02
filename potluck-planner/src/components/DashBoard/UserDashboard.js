@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PotluckCard from "../Potluck/PotLuckCard";
+import PotluckView from "../Potluck/PotluckView";
 import CreatePotluck from "../Potluck/CreatePotluck";
 import Styled from "styled-components";
 
@@ -68,6 +69,11 @@ class UserDashboard extends React.Component {
 							exact
 							path="/protected/create-potlucks"
 							component={CreatePotluck}
+						/>
+						<Route
+							exact
+							path="/protected/view-potluck/:id"
+							component={PotluckView}
 						/>
 					</PotluckDiv>
 				</Container>
