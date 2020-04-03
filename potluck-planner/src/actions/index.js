@@ -2,15 +2,22 @@ import axios from "axios";
 export const LOGIN_START = "LOGIN_START";
 export const REGISTER = "REGISTER";
 export const LOGOUT = "LOGOUT";
-export const GETPOTLUCKS = "GETPOTLUCKS";
-export const SUCCESS = "SUCCESS";
-export const FAILURE = "FAILURE";
-export const GETPOTLUCKBYID = "GETPOTLUCKBYID";
-export const GETPOTLUCKSBYIDSUCCESS = "GETPOTLUCKSBYIDSUCCESS";
-export const GETPOTLUCKSBYIDFAILURE = "GETPOTLUCKSBYIDFAILURE";
+export const GET_POTLUCKS = "GET_POTLUCKS";
+export const GET_POTLUCKS_SUCCESS = "GET_POTLUCKS_SUCCESS";
+export const GET_POTLUCKS_FAILURE = "GET_POTLUCKS_FAILURE";
+export const GET_POTLUCK_BY_ID = "GET_POTLUCK_BY_ID";
+export const GET_POTLUCKS_BY_ID_SUCCESS = "GET_POTLUCKS_BY_ID_SUCCESS";
+export const GET_POTLUCKS_BY_ID_FAILURE = "GET_POTLUCKS_BY_ID_FAILURE";
+export const GET_USERS_BY_POTLUCK = "GET_USERS_BY_POTLUCK";
+export const GET_USERS_BY_POTLUCK_SUCCESS = "GET_USERS_BY_POTLUCK_SUCCESS";
+export const GET_USERS_BY_POTLUCK_FAILURE = "GET_USERS_BY_POTLUCK_FAILURE";
+export const GET_REQUIREMENTS = "GET_REQUIREMENTS";
+export const GET_REQUIREMENTS_SUCCESS = "GET_REQUIREMENTS_SUCCESS";
+export const GET_REQUIREMENTS_FAILURE = "GET_REQUIREMENTS_FAILURE";
+
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
-const devURL = process.env.DEV_URL;
+//const devURL = process.env.DEV_URL;
 
 export const login = creds => dispatch => {
 	window.alert("Logging in");
@@ -33,7 +40,7 @@ export const register = regObj => dispatch => {
 };
 
 export const getPotlucks = () => dispatch => {
-	dispatch({ type: GETPOTLUCKS });
+	dispatch({ type: GET_POTLUCKS });
 
 	axios
 		.get(`http://localhost:5000/api/potlucks`, {
@@ -41,16 +48,16 @@ export const getPotlucks = () => dispatch => {
 		})
 		.then(res => {
 			console.log(res);
-			dispatch({ type: SUCCESS, payload: res.data });
+			dispatch({ type: GET_POTLUCKS_SUCCESS, payload: res.data });
 		})
 		.catch(err => {
 			console.log("This is actually the error" + err);
-			dispatch({ type: FAILURE, payload: err });
+			dispatch({ type: GET_POTLUCKS_FAILURE, payload: err });
 		});
 };
 
 export const getPotluckById = id => dispatch => {
-	dispatch({ type: GETPOTLUCKBYID });
+	dispatch({ type: GET_POTLUCK_BY_ID });
 
 	axios
 		.get(`http://localhost:5000/api/potlucks/${id}`, {
@@ -58,11 +65,45 @@ export const getPotluckById = id => dispatch => {
 		})
 		.then(res => {
 			console.log(res);
-			dispatch({ type: GETPOTLUCKSBYIDSUCCESS, payload: res.data });
+			dispatch({ type: GET_POTLUCKS_BY_ID_SUCCESS, payload: res.data });
 		})
 		.catch(err => {
 			console.log("This is actually the error" + err);
-			dispatch({ type: GETPOTLUCKSBYIDFAILURE, payload: err });
+			dispatch({ type: GET_POTLUCKS_BY_ID_FAILURE, payload: err });
+		});
+};
+
+export const getUsersByPotluckId = id => dispatch => {
+	dispatch({ type: GET_USERS_BY_POTLUCK });
+
+	axios
+		.get(`http://localhost:5000/api/users/by-potluck/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then(res => {
+			console.log("Here");
+			console.log(res.data);
+			dispatch({ type: GET_USERS_BY_POTLUCK_SUCCESS, payload: res.data });
+		})
+		.catch(err => {
+			console.log("This is actually the error" + err);
+			dispatch({ type: GET_USERS_BY_POTLUCK_FAILURE, payload: err });
+		});
+};
+
+export const getRequirements = id => dispatch => {
+	dispatch({ type: GET_REQUIREMENTS });
+
+	axios
+		.get(`http://localhost:5000/api/potlucks/reqs/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then(res => {
+			dispatch({ type: GET_REQUIREMENTS_SUCCESS, payload: res.data });
+		})
+		.catch(err => {
+			console.log("This is actually the error" + err);
+			dispatch({ type: GET_REQUIREMENTS_FAILURE, payload: err });
 		});
 };
 
@@ -75,7 +116,7 @@ export const addPotluck = newPotluck => dispatch => {
 		})
 		.then(res => {
 			console.log(res);
-			dispatch({ type: SUCCESS, payload: res.data });
+			dispatch({ type: GET_POTLUCKS_SUCCESS, payload: res.data });
 		})
 		.catch(err => console.log(err));
 };
