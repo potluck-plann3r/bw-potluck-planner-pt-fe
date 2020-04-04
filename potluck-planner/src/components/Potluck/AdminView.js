@@ -14,19 +14,18 @@ class AdminView extends React.Component {
 			},
 		};
 	}
-	// const onChange = e => {
-	// 	e.preventDefault()
-	// 	this.setState({
-	// 		...this.state,
-	// 		[e.target.name]: e.target.value,
-	// 	})
-	// }
+	onChange = e => {
+		e.preventDefault();
+		this.setState({
+			...this.state,
+			[e.target.name]: e.target.value,
+		});
+	};
 
 	render() {
 		return (
 			<>
-				<div>{console.log("Current Potluck")}</div>
-				<div>{console.log(this.props.currentPotluck[0])}</div>
+				<div>{console.log(this.props.currentPotluck)}</div>
 				<h1>{this.props.currentPotluck.locationName}</h1>
 				<address>
 					<p>
@@ -54,12 +53,14 @@ class AdminView extends React.Component {
 					</div>
 					<form onSubmit={this.addAttendee}>
 						<div>Add Attendee</div>
-						{/* <input
+						<input
 							type="text"
 							placeHolder="email"
 							value={this.state.newAttendee}
 							onChange={this.onChange}
-						/> */}
+							name="newAttendee"
+						/>
+						<button>Add Attendee </button>
 					</form>
 				</div>
 				<div>

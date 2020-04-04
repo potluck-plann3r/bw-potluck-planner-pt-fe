@@ -12,14 +12,17 @@ import AdminView from "./AdminView";
 class PotluckView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			loading: true,
+		};
 	}
-	componentDidMount() {
+	async componentDidMount() {
 		let { id } = this.props.match.params;
-		this.props.getPotluckById(id);
-		this.props.getUsersByPotluckId(id);
-		this.props.getRequirements(id);
-		console.log("Were Here");
+		await this.props.getPotluckById(id);
+		await this.props.getUsersByPotluckId(id);
+		await this.props.getRequirements(id);
+
+		this.setState({ loading: false });
 	}
 
 	render() {
@@ -30,6 +33,7 @@ class PotluckView extends React.Component {
 		} else if (this.props.currentRequirements === undefined) {
 			return <div>No Requirements</div>;
 		} else {
+			console.log(this.state.currentPotluck);
 			return <AdminView />;
 		}
 	}
