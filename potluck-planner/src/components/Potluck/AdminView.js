@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { addAttendee, removeAttendee } from "../../actions/index";
+import {
+	addAttendee,
+	removeAttendee,
+	addRequirement,
+} from "../../actions/index";
 
 class AdminView extends React.Component {
 	constructor(props) {
@@ -15,13 +19,14 @@ class AdminView extends React.Component {
 			},
 		};
 	}
-	onChange = (e) => {
+	onChangeAttendee = (e) => {
 		e.preventDefault();
 		this.setState({
 			...this.state,
 			[e.target.name]: e.target.value,
 		});
 	};
+
 	removeAttendee = (e) => {
 		let attendee = {
 			potluckId: this.props.currentPotluck.id,
@@ -31,7 +36,8 @@ class AdminView extends React.Component {
 		console.log(attendee);
 		this.props.removeAttendee(attendee);
 	};
-	onSubmit = (e) => {
+	onSubmitAttendee = (e) => {
+		e.preventDefault();
 		let newAttendee = {
 			potluckId: this.props.currentPotluck.id,
 			role: 0,
@@ -39,6 +45,35 @@ class AdminView extends React.Component {
 		};
 		this.props.addAttendee(newAttendee);
 		this.setState({ ...this.state, newAttendee: "" });
+	};
+	onChangeReq = (e) => {
+		e.preventDefault();
+		this.setState({
+			newRequirement: {
+				...this.state.newRequirement,
+				[e.target.name]: e.target.value,
+			},
+		});
+	};
+
+	onSubmitReq = (e) => {
+		e.preventDefault();
+		let potluckId = this.props.currentPotluck.id;
+		let newRequirement = {
+			foodCategory: this.state.newRequirement.category,
+			foodDescription: this.state.newRequirement.item,
+			servings: this.state.newRequirement.servings,
+			fufilled: 0,
+		};
+		this.props.addRequirement(newRequirement, potluckId);
+		this.setState({
+			newRequirement: {
+				category: "",
+				item: "",
+				servings: "",
+				fufilled: 0,
+			},
+		});
 	};
 
 	render() {
@@ -78,13 +113,13 @@ class AdminView extends React.Component {
 							);
 						})}
 					</div>
-					<form onSubmit={this.onSubmit}>
+					<form onSubmit={this.onSubmitAttendee}>
 						<div>Add Attendee</div>
 						<input
 							type="text"
 							placeHolder="email"
 							value={this.state.newAttendee}
-							onChange={this.onChange}
+							onChange={this.onChangeAttendee}
 							name="newAttendee"
 						/>
 						<button>Add Attendee </button>
@@ -104,6 +139,35 @@ class AdminView extends React.Component {
 							</>
 						))}
 					</div>
+					<div>
+						<h3>Add Requirement</h3>
+						<form>
+							<input
+								type="text"
+								name="category"
+								placeholder="food category"
+								value={this.state.newRequirement.category}
+								onChange={this.onChangeReq}
+							/>
+							<input
+								type="text"
+								name="item"
+								placeholder="food name"
+								value={this.state.newRequirement.item}
+								onChange={this.onChangeReq}
+							/>
+							<input
+								type="number"
+								name="servings"
+								placeholder="servings"
+								value={this.state.newRequirement.servings}
+								onChange={this.onChangeReq}
+							/>
+							<button onClick={this.onSubmitReq}>
+								Add Requirement
+							</button>
+						</form>
+					</div>
 				</div>
 			</>
 		);
@@ -118,6 +182,8 @@ const mapStateToProps = (state) => ({
 
 const AdminViewWithRouter = withRouter(AdminView);
 
-export default connect(mapStateToProps, { addAttendee, removeAttendee })(
-	AdminViewWithRouter
-);
+export default connect(mapStateToProps, {
+	addAttendee,
+	removeAttendee,
+	addRequirement,
+})(AdminViewWithRouter);

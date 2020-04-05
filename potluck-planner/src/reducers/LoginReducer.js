@@ -20,6 +20,9 @@ import {
 	REMOVE_ATTENDEE,
 	REMOVE_ATTENDEE_SUCCESS,
 	REMOVE_ATTENDEE_FAILURE,
+	ADD_REQUIREMENT,
+	ADD_REQUIREMENT_SUCCESS,
+	ADD_REQUIREMENT_FAILURE,
 } from "../actions";
 
 const initalState = {
@@ -37,6 +40,8 @@ const initalState = {
 	addingPotlucks: false,
 	addingAttendee: false,
 	removingAttendee: false,
+	addingReq: false,
+	removingReq: false,
 };
 
 export const reducer = (state = initalState, action) => {
@@ -177,6 +182,23 @@ export const reducer = (state = initalState, action) => {
 			return {
 				...state,
 				removingAttendee: false,
+				error: action.payload,
+			};
+		//Adding requirement
+		case ADD_REQUIREMENT:
+			return {
+				...state,
+				addingReq: true,
+			};
+		case ADD_REQUIREMENT_SUCCESS:
+			return {
+				...state,
+				addingReq: false,
+			};
+		case ADD_REQUIREMENT_FAILURE:
+			return {
+				...state,
+				addingReq: false,
 				error: action.payload,
 			};
 		default:

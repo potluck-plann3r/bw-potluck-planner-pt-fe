@@ -23,6 +23,10 @@ export const REMOVE_ATTENDEE = "REMOVE_ATTENDEE";
 export const REMOVE_ATTENDEE_SUCCESS = "REMOVE_ATTENDEE_SUCCESS";
 export const REMOVE_ATTENDEE_FAILURE = "REMOVE_ATTENDEE_FAILURE";
 
+export const ADD_REQUIREMENT = "ADD_REQUIREMENT";
+export const ADD_REQUIREMENT_SUCCESS = "ADD_REQUIREMENT_SUCCESS";
+export const ADD_REQUIREMENT_FAILURE = "ADD_REQUIREMENT_FAILURE";
+
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
 //const devURL = process.env.DEV_URL;
@@ -157,5 +161,20 @@ export const removeAttendee = (attendee) => (dispatch) => {
 		})
 		.catch((err) => {
 			dispatch({ type: REMOVE_ATTENDEE_FAILURE, payload: err.data });
+		});
+};
+
+export const addRequirement = (requirement, potluckId) => (dispatch) => {
+	dispatch({ type: ADD_REQUIREMENT });
+	const id = potluckId;
+	axios
+		.post(`http://localhost:5000/api/potlucks/reqs/${id}`, requirement, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: ADD_REQUIREMENT_SUCCESS, payload: res });
+		})
+		.catch((err) => {
+			dispatch({ type: ADD_REQUIREMENT_FAILURE, payload: err });
 		});
 };
