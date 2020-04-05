@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { addAttendee, removeAttendee } from "../../actions/index";
 
 class AdminView extends React.Component {
 	constructor(props) {
@@ -14,12 +15,30 @@ class AdminView extends React.Component {
 			},
 		};
 	}
-	onChange = e => {
+	onChange = (e) => {
 		e.preventDefault();
 		this.setState({
 			...this.state,
 			[e.target.name]: e.target.value,
 		});
+	};
+	removeAttendee = (e) => {
+		let attendee = {
+			potluckId: this.props.currentPotluck.id,
+			userId: e.target.id,
+		};
+		console.log("ATTENDEE");
+		console.log(attendee);
+		this.props.removeAttendee(attendee);
+	};
+	onSubmit = (e) => {
+		let newAttendee = {
+			potluckId: this.props.currentPotluck.id,
+			role: 0,
+			email: this.state.newAttendee,
+		};
+		this.props.addAttendee(newAttendee);
+		this.setState({ ...this.state, newAttendee: "" });
 	};
 
 	render() {
@@ -42,16 +61,24 @@ class AdminView extends React.Component {
 				<div>
 					<h2>Attendees</h2>
 					<div>
-						{this.props.currentPotluckUsers.map(user => {
+						{this.props.currentPotluckUsers.map((user) => {
 							console.log(user);
 							return (
-								<h4>
-									{user.firstName} {user.lastName}
-								</h4>
+								<>
+									<h4>
+										{user.firstName} {user.lastName}
+									</h4>
+									<button
+										id={user.userId}
+										onClick={this.removeAttendee}
+									>
+										Remove
+									</button>
+								</>
 							);
 						})}
 					</div>
-					<form onSubmit={this.addAttendee}>
+					<form onSubmit={this.onSubmit}>
 						<div>Add Attendee</div>
 						<input
 							type="text"
@@ -66,7 +93,7 @@ class AdminView extends React.Component {
 				<div>
 					<h2>Food Requirements</h2>
 					<div>
-						{this.props.currentRequirements.map(req => (
+						{this.props.currentRequirements.map((req) => (
 							<>
 								<h3>{req.foodCategory}</h3>
 								<p>
@@ -83,7 +110,7 @@ class AdminView extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	currentPotluck: state.reducer.currentPotluck,
 	currentPotluckUsers: state.reducer.currentPotluckUsers,
 	currentRequirements: state.reducer.currentRequirements,
@@ -91,4 +118,6 @@ const mapStateToProps = state => ({
 
 const AdminViewWithRouter = withRouter(AdminView);
 
-export default connect(mapStateToProps, {})(AdminViewWithRouter);
+export default connect(mapStateToProps, { addAttendee, removeAttendee })(
+	AdminViewWithRouter
+);
