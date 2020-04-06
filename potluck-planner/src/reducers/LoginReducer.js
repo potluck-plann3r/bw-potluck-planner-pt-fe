@@ -23,6 +23,12 @@ import {
 	ADD_REQUIREMENT,
 	ADD_REQUIREMENT_SUCCESS,
 	ADD_REQUIREMENT_FAILURE,
+	REMOVE_REQUIREMENT,
+	REMOVE_REQUIREMENT_SUCCESS,
+	REMOVE_REQUIREMENT_FAILURE,
+	GET_FOOD,
+	GET_FOOD_SUCCESS,
+	GET_FOOD_FAILURE,
 } from "../actions";
 
 const initalState = {
@@ -36,6 +42,7 @@ const initalState = {
 	currentPotluck: [],
 	currentPotluckUsers: [],
 	currentRequirements: [],
+	currentFood: [],
 	error: null,
 	addingPotlucks: false,
 	addingAttendee: false,
@@ -199,6 +206,41 @@ export const reducer = (state = initalState, action) => {
 			return {
 				...state,
 				addingReq: false,
+				error: action.payload,
+			};
+		case REMOVE_REQUIREMENT:
+			return {
+				...state,
+				removingReq: true,
+			};
+		case REMOVE_REQUIREMENT_SUCCESS:
+			return {
+				...state,
+				removingReq: false,
+			};
+		case REMOVE_REQUIREMENT_FAILURE:
+			return {
+				...state,
+				removingReq: false,
+				error: action.payload,
+			};
+
+		//Getting food
+		case GET_FOOD:
+			return {
+				...state,
+				gettingFood: true,
+			};
+		case GET_FOOD_SUCCESS:
+			return {
+				...state,
+				gettingFood: false,
+				currentFood: action.payload,
+			};
+		case GET_FOOD_FAILURE:
+			return {
+				...state,
+				gettingFood: false,
 				error: action.payload,
 			};
 		default:

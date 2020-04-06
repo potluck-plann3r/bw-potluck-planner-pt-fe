@@ -5,6 +5,7 @@ import {
 	addAttendee,
 	removeAttendee,
 	addRequirement,
+	removeRequirement,
 } from "../../actions/index";
 
 class AdminView extends React.Component {
@@ -54,6 +55,10 @@ class AdminView extends React.Component {
 				[e.target.name]: e.target.value,
 			},
 		});
+	};
+	removeRequirement = (e) => {
+		e.preventDefault();
+		this.props.removeRequirement(e.target.id);
 	};
 
 	onSubmitReq = (e) => {
@@ -136,6 +141,12 @@ class AdminView extends React.Component {
 									{": "}
 									{req.servings}
 								</p>
+								<button
+									id={req.id}
+									onClick={this.removeRequirement}
+								>
+									Remove Requirement
+								</button>
 							</>
 						))}
 					</div>
@@ -186,4 +197,5 @@ export default connect(mapStateToProps, {
 	addAttendee,
 	removeAttendee,
 	addRequirement,
+	removeRequirement,
 })(AdminViewWithRouter);

@@ -27,6 +27,14 @@ export const ADD_REQUIREMENT = "ADD_REQUIREMENT";
 export const ADD_REQUIREMENT_SUCCESS = "ADD_REQUIREMENT_SUCCESS";
 export const ADD_REQUIREMENT_FAILURE = "ADD_REQUIREMENT_FAILURE";
 
+export const REMOVE_REQUIREMENT = "REMOVE_REQUIREMENT";
+export const REMOVE_REQUIREMENT_SUCCESS = "REMOVE_REQUIREMENT_SUCCESS";
+export const REMOVE_REQUIREMENT_FAILURE = "REMOVE_REQUIREMENT_FAILURE";
+
+export const GET_FOOD = "GET_FOOD";
+export const GET_FOOD_SUCCESS = "GET_FOOD_SUCCESS";
+export const GET_FOOD_FAILURE = "GET_FOOD_FAILURE";
+
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
 //const devURL = process.env.DEV_URL;
@@ -176,5 +184,33 @@ export const addRequirement = (requirement, potluckId) => (dispatch) => {
 		})
 		.catch((err) => {
 			dispatch({ type: ADD_REQUIREMENT_FAILURE, payload: err });
+		});
+};
+
+export const removeRequirement = (id) => (dispatch) => {
+	dispatch({ type: REMOVE_REQUIREMENT });
+	axios
+		.delete(`http://localhost:5000/api/potlucks/reqs/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: REMOVE_REQUIREMENT_SUCCESS });
+		})
+		.catch((err) => {
+			dispatch({ type: REMOVE_REQUIREMENT_FAILURE, payload: err });
+		});
+};
+
+export const getFood = (id) => (dispatch) => {
+	dispatch({ type: GET_FOOD });
+	axios
+		.get(`http://localhost:5000/api/potlucks/items/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: GET_FOOD_SUCCESS, payload: res.data });
+		})
+		.catch((err) => {
+			dispatch({ type: GET_FOOD_FAILURE, payload: err });
 		});
 };
