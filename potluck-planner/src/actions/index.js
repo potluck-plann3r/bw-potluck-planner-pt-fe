@@ -35,6 +35,10 @@ export const GET_FOOD = "GET_FOOD";
 export const GET_FOOD_SUCCESS = "GET_FOOD_SUCCESS";
 export const GET_FOOD_FAILURE = "GET_FOOD_FAILURE";
 
+export const CLAIM_FOOD = "CLAIM_FOOD";
+export const CLAIM_FOOD_SUCCESS = "CLAIM_FOOD_SUCCESS";
+export const CLAIM_FOOD_FAILURE = "CLAIM_FOOD_FAILURE";
+
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
 //const devURL = process.env.DEV_URL;
@@ -212,5 +216,27 @@ export const getFood = (id) => (dispatch) => {
 		})
 		.catch((err) => {
 			dispatch({ type: GET_FOOD_FAILURE, payload: err });
+		});
+};
+
+export const claimFood = (food) => (dispatch) => {
+	dispatch({ type: CLAIM_FOOD });
+	let id = food.potluckId;
+	console.log("Claim food");
+	console.log(id);
+	let newFood = {
+		foodCategory: food.foodCategory,
+		foodDescription: food.foodDescription,
+		servings: food.servings,
+	};
+	axios
+		.post(`http://localhost:5000/api/potlucks/items/${id}`, newFood, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: CLAIM_FOOD_SUCCESS });
+		})
+		.catch((err) => {
+			dispatch({ type: CLAIM_FOOD_FAILURE, payload: err });
 		});
 };

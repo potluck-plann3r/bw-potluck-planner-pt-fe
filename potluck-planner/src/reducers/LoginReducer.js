@@ -29,6 +29,9 @@ import {
 	GET_FOOD,
 	GET_FOOD_SUCCESS,
 	GET_FOOD_FAILURE,
+	CLAIM_FOOD,
+	CLAIM_FOOD_SUCCESS,
+	CLAIM_FOOD_FAILURE,
 } from "../actions";
 
 const initalState = {
@@ -49,6 +52,7 @@ const initalState = {
 	removingAttendee: false,
 	addingReq: false,
 	removingReq: false,
+	claimingFood: false,
 };
 
 export const reducer = (state = initalState, action) => {
@@ -241,6 +245,24 @@ export const reducer = (state = initalState, action) => {
 			return {
 				...state,
 				gettingFood: false,
+				error: action.payload,
+			};
+
+		//Claim food
+		case CLAIM_FOOD:
+			return {
+				...state,
+				claimingFood: true,
+			};
+		case CLAIM_FOOD_SUCCESS:
+			return {
+				...state,
+				claimingFood: false,
+			};
+		case CLAIM_FOOD_FAILURE:
+			return {
+				...state,
+				claimingFood: false,
 				error: action.payload,
 			};
 		default:

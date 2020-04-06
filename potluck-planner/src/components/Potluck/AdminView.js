@@ -6,6 +6,7 @@ import {
 	removeAttendee,
 	addRequirement,
 	removeRequirement,
+	claimFood,
 } from "../../actions/index";
 
 class AdminView extends React.Component {
@@ -68,7 +69,7 @@ class AdminView extends React.Component {
 			foodCategory: this.state.newRequirement.category,
 			foodDescription: this.state.newRequirement.item,
 			servings: this.state.newRequirement.servings,
-			fufilled: 0,
+			fufilled: false,
 		};
 		this.props.addRequirement(newRequirement, potluckId);
 		this.setState({
@@ -76,9 +77,26 @@ class AdminView extends React.Component {
 				category: "",
 				item: "",
 				servings: "",
-				fufilled: 0,
+				fufilled: false,
 			},
 		});
+	};
+
+	onClaimFood = (e) => {
+		e.preventDefault();
+		let curFood = this.props.currentRequirements.filter(
+			(food) => food.id === e.target.id
+		);
+		let food = {
+			potluckId: this.props.currentPotluck.id,
+			foodCategory: curFood.foodCategory,
+			foodDescription: curFood.foodDescription,
+			servings: curFood.servings,
+		};
+		console.log("FOOD");
+		console.log(food);
+		console.log(e.target.foodCategory);
+		this.props.claimFood(food);
 	};
 
 	render() {
@@ -147,6 +165,9 @@ class AdminView extends React.Component {
 								>
 									Remove Requirement
 								</button>
+								<button id={req.id} onClick={this.onClaimFood}>
+									Claim Requirement
+								</button>
 							</>
 						))}
 					</div>
@@ -198,4 +219,5 @@ export default connect(mapStateToProps, {
 	removeAttendee,
 	addRequirement,
 	removeRequirement,
+	claimFood,
 })(AdminViewWithRouter);
