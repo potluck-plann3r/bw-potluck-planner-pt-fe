@@ -35,9 +35,9 @@ export const GET_FOOD = "GET_FOOD";
 export const GET_FOOD_SUCCESS = "GET_FOOD_SUCCESS";
 export const GET_FOOD_FAILURE = "GET_FOOD_FAILURE";
 
-export const CLAIM_FOOD = "CLAIM_FOOD";
-export const CLAIM_FOOD_SUCCESS = "CLAIM_FOOD_SUCCESS";
-export const CLAIM_FOOD_FAILURE = "CLAIM_FOOD_FAILURE";
+export const CLAIM_REQUIREMENT = "CLAIM_REQUIREMENT";
+export const CLAIM_REQUIREMENT_SUCCESS = "CLAIM_REQUIREMENT_SUCCESS";
+export const CLAIM_REQUIREMENT_FAILURE = "CLAIM_REQUIREMENT_FAILURE";
 
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
 
@@ -219,24 +219,25 @@ export const getFood = (id) => (dispatch) => {
 		});
 };
 
-export const claimFood = (food) => (dispatch) => {
-	dispatch({ type: CLAIM_FOOD });
-	let id = food.potluckId;
+export const claimRequirement = (food) => (dispatch) => {
+	dispatch({ type: CLAIM_REQUIREMENT });
+	let id = food.reqId;
 	console.log("Claim food");
 	console.log(id);
 	let newFood = {
+		potluckId: food.potluckId,
 		foodCategory: food.foodCategory,
 		foodDescription: food.foodDescription,
 		servings: food.servings,
 	};
 	axios
-		.post(`http://localhost:5000/api/potlucks/items/${id}`, newFood, {
+		.put(`http://localhost:5000/api/potlucks/reqs/${id}`, newFood, {
 			headers: { auth: localStorage.getItem("token") },
 		})
 		.then((res) => {
-			dispatch({ type: CLAIM_FOOD_SUCCESS });
+			dispatch({ type: CLAIM_REQUIREMENT_SUCCESS });
 		})
 		.catch((err) => {
-			dispatch({ type: CLAIM_FOOD_FAILURE, payload: err });
+			dispatch({ type: CLAIM_REQUIREMENT_FAILURE, payload: err });
 		});
 };

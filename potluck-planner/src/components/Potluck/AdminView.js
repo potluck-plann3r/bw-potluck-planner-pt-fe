@@ -6,7 +6,7 @@ import {
 	removeAttendee,
 	addRequirement,
 	removeRequirement,
-	claimFood,
+	claimRequirement,
 } from "../../actions/index";
 
 class AdminView extends React.Component {
@@ -48,6 +48,7 @@ class AdminView extends React.Component {
 		this.props.addAttendee(newAttendee);
 		this.setState({ ...this.state, newAttendee: "" });
 	};
+
 	onChangeReq = (e) => {
 		e.preventDefault();
 		this.setState({
@@ -82,27 +83,36 @@ class AdminView extends React.Component {
 		});
 	};
 
-	onClaimFood = (e) => {
-		e.preventDefault();
-		let curFood = this.props.currentRequirements.filter(
-			(food) => food.id === e.target.id
-		);
+	onClaimRequirement = (e) => {
+		let curReqs = this.props.currentRequirements;
+		console.log("CURRENT REQUIREMENTS");
+		console.log(e.target.id);
+		let selectedReq;
+
+		for (var i = 0; i < curReqs.length; i++) {
+			if (curReqs[i].id === parseInt(e.target.id)) {
+				selectedReq = i;
+				break;
+			}
+		}
+
+		console.log(curReqs[selectedReq]);
+
 		let food = {
+			reqId: curReqs[selectedReq].id,
 			potluckId: this.props.currentPotluck.id,
-			foodCategory: curFood.foodCategory,
-			foodDescription: curFood.foodDescription,
-			servings: curFood.servings,
+			foodCategory: curReqs[selectedReq].foodCategory,
+			foodDescription: curReqs[selectedReq].foodDescription,
+			servings: curReqs[selectedReq].servings,
 		};
-		console.log("FOOD");
+
 		console.log(food);
-		console.log(e.target.foodCategory);
-		this.props.claimFood(food);
+		this.props.claimRequirement(food);
 	};
 
 	render() {
 		return (
 			<>
-				<div>{console.log(this.props.currentPotluck)}</div>
 				<h1>{this.props.currentPotluck.locationName}</h1>
 				<address>
 					<p>
@@ -159,13 +169,17 @@ class AdminView extends React.Component {
 									{": "}
 									{req.servings}
 								</p>
+								<h3>{req.fufilled}</h3>
 								<button
 									id={req.id}
 									onClick={this.removeRequirement}
 								>
 									Remove Requirement
 								</button>
-								<button id={req.id} onClick={this.onClaimFood}>
+								<button
+									id={req.id}
+									onClick={this.onClaimRequirement}
+								>
 									Claim Requirement
 								</button>
 							</>
@@ -219,5 +233,5 @@ export default connect(mapStateToProps, {
 	removeAttendee,
 	addRequirement,
 	removeRequirement,
-	claimFood,
+	claimRequirement,
 })(AdminViewWithRouter);

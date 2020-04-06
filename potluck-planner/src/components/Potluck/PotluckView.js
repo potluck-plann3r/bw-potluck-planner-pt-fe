@@ -7,6 +7,7 @@ import {
 	getUsersByPotluckId,
 	getRequirements,
 	getFood,
+	claimRequirement,
 } from "../../actions/index";
 import AdminView from "./AdminView";
 
@@ -55,4 +56,5 @@ export default connect(mapStateToProps, {
 	getUsersByPotluckId,
 	getRequirements,
 	getFood,
+	claimRequirement,
 })(PotluckViewWithRouter);
