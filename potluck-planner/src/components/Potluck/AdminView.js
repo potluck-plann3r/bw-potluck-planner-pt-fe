@@ -161,29 +161,44 @@ class AdminView extends React.Component {
 				<div>
 					<h2>Food Requirements</h2>
 					<div>
-						{this.props.currentRequirements.map((req) => (
-							<>
-								<h3>{req.foodCategory}</h3>
-								<p>
-									{req.foodDescription}
-									{": "}
-									{req.servings}
-								</p>
-								<h3>{req.fufilled}</h3>
-								<button
-									id={req.id}
-									onClick={this.removeRequirement}
-								>
-									Remove Requirement
-								</button>
-								<button
-									id={req.id}
-									onClick={this.onClaimRequirement}
-								>
-									Claim Requirement
-								</button>
-							</>
-						))}
+						{this.props.currentRequirements.map((req) => {
+							var users = this.props.currentPotluckUsers;
+							var user;
+							for (var i = 0; i < users.length; i++) {
+								if (users[i].userId === req.fufilled) {
+									user =
+										users[i].firstName +
+										" " +
+										users[i].lastName;
+									break;
+								} else {
+									user = "Unclaimed";
+								}
+							}
+							return (
+								<>
+									<h3>{req.foodCategory}</h3>
+									<p>
+										{req.foodDescription}
+										{": "}
+										{req.servings}
+									</p>
+									<h3>{user}</h3>
+									<button
+										id={req.id}
+										onClick={this.removeRequirement}
+									>
+										Remove Requirement
+									</button>
+									<button
+										id={req.id}
+										onClick={this.onClaimRequirement}
+									>
+										Claim Requirement
+									</button>
+								</>
+							);
+						})}
 					</div>
 					<div>
 						<h3>Add Requirement</h3>
