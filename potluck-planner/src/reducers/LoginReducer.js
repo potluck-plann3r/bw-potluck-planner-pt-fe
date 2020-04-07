@@ -1,5 +1,7 @@
 import {
 	LOGIN_START,
+	LOGIN_SUCCESS,
+	LOGIN_FAILURE,
 	REGISTER,
 	GET_POTLUCKS,
 	GET_POTLUCKS_SUCCESS,
@@ -41,6 +43,7 @@ const initalState = {
 	fetchingPotluck: false,
 	fetchingUsers: false,
 	fetchingRequirements: false,
+	currentUser: [],
 	potlucks: [],
 	currentPotluck: [],
 	currentPotluckUsers: [],
@@ -62,6 +65,18 @@ export const reducer = (state = initalState, action) => {
 				...state,
 				isLoggingIn: true,
 				isRegistering: false,
+			};
+		case LOGIN_SUCCESS:
+			return {
+				...state,
+				isLoggingIn: false,
+				currentUser: action.payload,
+			};
+		case LOGIN_FAILURE:
+			return {
+				...state,
+				isLoggingIn: false,
+				error: action.payload,
 			};
 		case REGISTER:
 			return {

@@ -9,7 +9,7 @@ import {
 	claimRequirement,
 } from "../../actions/index";
 
-class AdminView extends React.Component {
+class AttendeeView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,11 +38,12 @@ class AdminView extends React.Component {
 		console.log(attendee);
 		this.props.removeAttendee(attendee);
 	};
+
 	onSubmitAttendee = (e) => {
 		e.preventDefault();
 		let newAttendee = {
 			potluckId: this.props.currentPotluck.id,
-			role: 1,
+			role: 0,
 			email: this.state.newAttendee,
 		};
 		this.props.addAttendee(newAttendee);
@@ -136,27 +137,10 @@ class AdminView extends React.Component {
 									<h4>
 										{user.firstName} {user.lastName}
 									</h4>
-									<button
-										id={user.userId}
-										onClick={this.removeAttendee}
-									>
-										Remove
-									</button>
 								</>
 							);
 						})}
 					</div>
-					<form onSubmit={this.onSubmitAttendee}>
-						<div>Add Attendee</div>
-						<input
-							type="text"
-							placeHolder="email"
-							value={this.state.newAttendee}
-							onChange={this.onChangeAttendee}
-							name="newAttendee"
-						/>
-						<button>Add Attendee </button>
-					</form>
 				</div>
 				<div>
 					<h2>Food Requirements</h2>
@@ -186,12 +170,6 @@ class AdminView extends React.Component {
 									<h3>{user}</h3>
 									<button
 										id={req.id}
-										onClick={this.removeRequirement}
-									>
-										Remove Requirement
-									</button>
-									<button
-										id={req.id}
 										onClick={this.onClaimRequirement}
 									>
 										Claim Requirement
@@ -199,35 +177,6 @@ class AdminView extends React.Component {
 								</>
 							);
 						})}
-					</div>
-					<div>
-						<h3>Add Requirement</h3>
-						<form>
-							<input
-								type="text"
-								name="category"
-								placeholder="food category"
-								value={this.state.newRequirement.category}
-								onChange={this.onChangeReq}
-							/>
-							<input
-								type="text"
-								name="item"
-								placeholder="food name"
-								value={this.state.newRequirement.item}
-								onChange={this.onChangeReq}
-							/>
-							<input
-								type="number"
-								name="servings"
-								placeholder="servings"
-								value={this.state.newRequirement.servings}
-								onChange={this.onChangeReq}
-							/>
-							<button onClick={this.onSubmitReq}>
-								Add Requirement
-							</button>
-						</form>
 					</div>
 				</div>
 			</>
@@ -241,7 +190,7 @@ const mapStateToProps = (state) => ({
 	currentRequirements: state.reducer.currentRequirements,
 });
 
-const AdminViewWithRouter = withRouter(AdminView);
+const AttendeeViewWithRouter = withRouter(AttendeeView);
 
 export default connect(mapStateToProps, {
 	addAttendee,
@@ -249,4 +198,4 @@ export default connect(mapStateToProps, {
 	addRequirement,
 	removeRequirement,
 	claimRequirement,
-})(AdminViewWithRouter);
+})(AttendeeViewWithRouter);

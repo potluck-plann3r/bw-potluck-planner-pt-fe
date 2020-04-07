@@ -1,5 +1,7 @@
 import axios from "axios";
 export const LOGIN_START = "LOGIN_START";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const REGISTER = "REGISTER";
 export const LOGOUT = "LOGOUT";
 export const GET_POTLUCKS = "GET_POTLUCKS";
@@ -50,9 +52,12 @@ export const login = (creds) => (dispatch) => {
 		.post(`http://localhost:5000/api/auth/login`, creds)
 		.then((res) => {
 			localStorage.setItem("token", res.data.authToken);
-			window.alert(res.data.message);
+			dispatch({ type: LOGIN_SUCCESS, payload: res.data.user });
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			dispatch({ type: LOGIN_FAILURE, payload: err });
+			console.log(err);
+		});
 };
 
 export const register = (regObj) => (dispatch) => {

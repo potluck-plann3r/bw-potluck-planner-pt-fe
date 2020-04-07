@@ -10,6 +10,7 @@ import {
 	claimRequirement,
 } from "../../actions/index";
 import AdminView from "./AdminView";
+import AttendeeView from "./AttendeeView";
 
 class PotluckView extends React.Component {
 	constructor(props) {
@@ -37,8 +38,22 @@ class PotluckView extends React.Component {
 		} else if (this.props.currentFood === undefined) {
 			return <div>No Food</div>;
 		} else {
-			console.log(this.state.currentPotluck);
-			return <AdminView />;
+			let curUsers = this.props.currentPotluckUsers;
+			let adminView = false;
+			for (var i = 0; i < curUsers.length; i++) {
+				if (
+					curUsers[i].userId === this.props.currentUser.id &&
+					curUsers[i].role === 0
+				) {
+					adminView = true;
+					break;
+				}
+			}
+			if (adminView) {
+				return <AdminView />;
+			} else {
+				return <AttendeeView />;
+			}
 		}
 	}
 }
@@ -48,6 +63,7 @@ const mapStateToProps = (state) => ({
 	currentPotluckUsers: state.reducer.currentPotluckUsers,
 	currentRequirements: state.reducer.currentRequirements,
 	currentFood: state.reducer.currentFood,
+	currentUser: state.reducer.currentUser,
 });
 
 const PotluckViewWithRouter = withRouter(PotluckView);
