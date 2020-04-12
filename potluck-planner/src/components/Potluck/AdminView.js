@@ -132,17 +132,15 @@ class AdminView extends React.Component {
 						{this.props.currentPotluckUsers.map((user) => {
 							console.log(user);
 							return (
-								<>
+								<form
+									id={user.userId}
+									onClick={this.removeAttendee}
+								>
 									<h4>
 										{user.firstName} {user.lastName}
 									</h4>
-									<button
-										id={user.userId}
-										onClick={this.removeAttendee}
-									>
-										Remove
-									</button>
-								</>
+									<button>Remove</button>
+								</form>
 							);
 						})}
 					</div>
@@ -177,25 +175,27 @@ class AdminView extends React.Component {
 							}
 							return (
 								<>
-									<h3>{req.foodCategory}</h3>
-									<p>
-										{req.foodDescription}
-										{": "}
-										{req.servings}
-									</p>
-									<h3>{user}</h3>
-									<button
+									<form
 										id={req.id}
-										onClick={this.removeRequirement}
+										onSubmit={this.removeRequirement}
 									>
-										Remove Requirement
-									</button>
-									<button
-										id={req.id}
-										onClick={this.onClaimRequirement}
-									>
-										Claim Requirement
-									</button>
+										<h3>{req.foodCategory}</h3>
+										<p>
+											{req.foodDescription}
+											{": "}
+											{req.servings}
+										</p>
+										<h3>{user}</h3>
+										<button>Remove Requirement</button>
+									</form>
+									<form>
+										<button
+											id={req.id}
+											onClick={this.onClaimRequirement}
+										>
+											Claim Requirement
+										</button>
+									</form>
 								</>
 							);
 						})}

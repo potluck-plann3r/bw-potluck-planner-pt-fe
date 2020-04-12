@@ -3,6 +3,9 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
 	REGISTER,
+	GET_CUR_USER,
+	GET_CUR_USER_SUCCESS,
+	GET_CUR_USER_FAILURE,
 	GET_POTLUCKS,
 	GET_POTLUCKS_SUCCESS,
 	GET_POTLUCKS_FAILURE,
@@ -43,6 +46,7 @@ const initalState = {
 	fetchingPotluck: false,
 	fetchingUsers: false,
 	fetchingRequirements: false,
+	gettingCurUser: false,
 	currentUser: [],
 	potlucks: [],
 	currentPotluck: [],
@@ -83,6 +87,25 @@ export const reducer = (state = initalState, action) => {
 				...state,
 				isRegistering: true,
 			};
+
+		case GET_CUR_USER:
+			return {
+				...state,
+				gettingCurUser: true,
+			};
+		case GET_CUR_USER_SUCCESS:
+			return {
+				...state,
+				gettingCurUser: false,
+				currentUser: action.payload,
+			};
+		case GET_CUR_USER_FAILURE:
+			return {
+				...state,
+				gettingCurUser: false,
+				error: action.payload,
+			};
+
 		case GET_POTLUCKS:
 			return {
 				...state,

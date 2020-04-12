@@ -4,6 +4,11 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const REGISTER = "REGISTER";
 export const LOGOUT = "LOGOUT";
+
+export const GET_CUR_USER = "GET_CUR_USER";
+export const GET_CUR_USER_SUCCESS = "GET_CUR_USER_SUCCESS";
+export const GET_CUR_USER_FAILURE = "GET_CUR_USER_FAILURE";
+
 export const GET_POTLUCKS = "GET_POTLUCKS";
 export const GET_POTLUCKS_SUCCESS = "GET_POTLUCKS_SUCCESS";
 export const GET_POTLUCKS_FAILURE = "GET_POTLUCKS_FAILURE";
@@ -68,9 +73,22 @@ export const register = (regObj) => (dispatch) => {
 		.catch((err) => console.log(err));
 };
 
+export const getCurrentUser = () => (dispatch) => {
+	dispatch({ type: GET_CUR_USER });
+	axios
+		.get(`http://localhost:5000/api/users/current`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: GET_CUR_USER_SUCCESS, payload: res.data });
+		})
+		.catch((err) => {
+			dispatch({ type: GET_CUR_USER_FAILURE, payload: err });
+		});
+};
+
 export const getPotlucks = () => (dispatch) => {
 	dispatch({ type: GET_POTLUCKS });
-
 	axios
 		.get(`http://localhost:5000/api/potlucks`, {
 			headers: { auth: localStorage.getItem("token") },
@@ -110,8 +128,6 @@ export const getUsersByPotluckId = (id) => (dispatch) => {
 			headers: { auth: localStorage.getItem("token") },
 		})
 		.then((res) => {
-			console.log("Here");
-			console.log(res.data);
 			dispatch({ type: GET_USERS_BY_POTLUCK_SUCCESS, payload: res.data });
 		})
 		.catch((err) => {

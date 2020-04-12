@@ -8,6 +8,7 @@ import {
 	getRequirements,
 	getFood,
 	claimRequirement,
+	getCurrentUser,
 } from "../../actions/index";
 import AdminView from "./AdminView";
 import AttendeeView from "./AttendeeView";
@@ -25,6 +26,7 @@ class PotluckView extends React.Component {
 		await this.props.getUsersByPotluckId(id);
 		await this.props.getRequirements(id);
 		await this.props.getFood(id);
+		await this.props.getCurrentUser();
 		this.setState({ loading: false });
 	}
 
@@ -41,6 +43,7 @@ class PotluckView extends React.Component {
 			let curUsers = this.props.currentPotluckUsers;
 			let adminView = false;
 			for (var i = 0; i < curUsers.length; i++) {
+				console.log(curUsers[i]);
 				if (
 					curUsers[i].userId === this.props.currentUser.id &&
 					curUsers[i].role === 0
@@ -73,4 +76,5 @@ export default connect(mapStateToProps, {
 	getRequirements,
 	getFood,
 	claimRequirement,
+	getCurrentUser,
 })(PotluckViewWithRouter);

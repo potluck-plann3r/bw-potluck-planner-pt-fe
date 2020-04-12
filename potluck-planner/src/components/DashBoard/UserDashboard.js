@@ -42,7 +42,7 @@ class UserDashboard extends React.Component {
 
 	componentDidMount() {
 		this.props.getPotlucks();
-		this.props.history.push("/protected/potlucks");
+		//this.props.history.push("/protected/potlucks");
 	}
 
 	render() {
@@ -53,7 +53,7 @@ class UserDashboard extends React.Component {
 				<Container>
 					<HeaderDiv>
 						<button onClick={this.onLogOut}>Log out</button>
-						<NavLink to="/protected/potlucks">My Potlucks</NavLink>
+						<NavLink to="/protected">My Potlucks</NavLink>
 						<Link to="/protected/create-potlucks">
 							Create Potluck
 						</Link>
@@ -61,7 +61,8 @@ class UserDashboard extends React.Component {
 					<PotluckDiv>
 						<div>{console.log(this.props)}</div>
 						<Route
-							path="/protected/potlucks"
+							exact
+							path="/protected"
 							component={PotluckCard}
 						/>
 
@@ -82,7 +83,7 @@ class UserDashboard extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	potlucks: state.reducer.potlucks,
 	error: state.reducer.error,
 	fetchingPotlucks: state.reducer.fetchingPotlucks,
