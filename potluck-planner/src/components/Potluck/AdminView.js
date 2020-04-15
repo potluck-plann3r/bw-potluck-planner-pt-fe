@@ -7,6 +7,8 @@ import {
 	addRequirement,
 	removeRequirement,
 	claimRequirement,
+	getRequirements,
+	getUsersByPotluckId,
 } from "../../actions/index";
 
 class AdminView extends React.Component {
@@ -37,6 +39,7 @@ class AdminView extends React.Component {
 		console.log("ATTENDEE");
 		console.log(attendee);
 		this.props.removeAttendee(attendee);
+		this.props.getUsersByPotluckId(this.props.currentPotluck.id);
 	};
 	onSubmitAttendee = (e) => {
 		e.preventDefault();
@@ -47,6 +50,7 @@ class AdminView extends React.Component {
 		};
 		this.props.addAttendee(newAttendee);
 		this.setState({ ...this.state, newAttendee: "" });
+		this.props.getUsersByPotluckId(this.props.currentPotluck.id);
 	};
 
 	onChangeReq = (e) => {
@@ -61,6 +65,7 @@ class AdminView extends React.Component {
 	removeRequirement = (e) => {
 		e.preventDefault();
 		this.props.removeRequirement(e.target.id);
+		this.props.getRequirements(this.props.currentPotluck.id);
 	};
 
 	onSubmitReq = (e) => {
@@ -81,6 +86,7 @@ class AdminView extends React.Component {
 				fufilled: false,
 			},
 		});
+		this.props.getRequirements(this.props.currentPotluck.id);
 	};
 
 	onClaimRequirement = (e) => {
@@ -108,6 +114,7 @@ class AdminView extends React.Component {
 
 		console.log(food);
 		this.props.claimRequirement(food);
+		this.props.getRequirements(this.props.currentPotluck.id);
 	};
 
 	render() {
@@ -132,19 +139,21 @@ class AdminView extends React.Component {
 						{this.props.currentPotluckUsers.map((user) => {
 							console.log(user);
 							return (
-								<form
-									id={user.userId}
-									onClick={this.removeAttendee}
-								>
+								<form>
 									<h4>
 										{user.firstName} {user.lastName}
 									</h4>
-									<button>Remove</button>
+									<button
+										id={user.userId}
+										onClick={this.removeAttendee}
+									>
+										Remove
+									</button>
 								</form>
 							);
 						})}
 					</div>
-					<form onSubmit={this.onSubmitAttendee}>
+					<form>
 						<div>Add Attendee</div>
 						<input
 							type="text"
@@ -153,7 +162,9 @@ class AdminView extends React.Component {
 							onChange={this.onChangeAttendee}
 							name="newAttendee"
 						/>
-						<button>Add Attendee </button>
+						<button onClick={this.onSubmitAttendee}>
+							Add Attendee{" "}
+						</button>
 					</form>
 				</div>
 				<div>
@@ -175,18 +186,20 @@ class AdminView extends React.Component {
 							}
 							return (
 								<>
-									<form
-										id={req.id}
-										onSubmit={this.removeRequirement}
-									>
-										<h3>{req.foodCategory}</h3>
-										<p>
-											{req.foodDescription}
-											{": "}
-											{req.servings}
-										</p>
-										<h3>{user}</h3>
-										<button>Remove Requirement</button>
+									<h3>{req.foodCategory}</h3>
+									<p>
+										{req.foodDescription}
+										{": "}
+										{req.servings}
+									</p>
+									<h3>{user}</h3>
+									<form>
+										<button
+											id={req.id}
+											onClick={this.removeRequirement}
+										>
+											Remove Requirement
+										</button>
 									</form>
 									<form>
 										<button
@@ -249,4 +262,6 @@ export default connect(mapStateToProps, {
 	addRequirement,
 	removeRequirement,
 	claimRequirement,
+	getRequirements,
+	getUsersByPotluckId,
 })(AdminViewWithRouter);
