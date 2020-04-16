@@ -1,5 +1,4 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import {
@@ -9,14 +8,16 @@ import {
 	getFood,
 	claimRequirement,
 	getCurrentUser,
-} from "../../actions/index";
-import AdminView from "./AdminView";
-import AttendeeView from "./AttendeeView";
+} from "../../../actions/index";
+import PotluckInfo from "./PotluckInfo.js";
+import PotluckAttendee from "./PotluckAttendee";
+import PotluckRequirements from "./PotluckRequirements.js";
 
 class PotluckView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			amdin: 1,
 			loading: true,
 		};
 	}
@@ -41,22 +42,25 @@ class PotluckView extends React.Component {
 			return <div>No Food</div>;
 		} else {
 			let curUsers = this.props.currentPotluckUsers;
-			let adminView = false;
+			let adminView = 1;
 			for (var i = 0; i < curUsers.length; i++) {
 				console.log(curUsers[i]);
 				if (
 					curUsers[i].userId === this.props.currentUser.id &&
 					curUsers[i].role === 0
 				) {
-					adminView = true;
+					adminView = 0;
 					break;
 				}
 			}
-			if (adminView) {
-				return <AdminView />;
-			} else {
-				return <AttendeeView />;
-			}
+
+			return (
+				<>
+					<PotluckInfo admin={adminView} />
+					<PotluckAttendee admin={adminView} />
+					<PotluckRequirements admin={adminView} />
+				</>
+			);
 		}
 	}
 }

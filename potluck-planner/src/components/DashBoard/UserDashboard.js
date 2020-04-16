@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PotluckCard from "../Potluck/PotLuckCard";
-import PotluckView from "../Potluck/PotluckView";
+import PotluckView from "../Potluck/PotluckView/PotluckView.js";
 import CreatePotluck from "../Potluck/CreatePotluck";
 import Styled from "styled-components";
 
