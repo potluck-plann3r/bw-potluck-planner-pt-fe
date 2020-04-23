@@ -19,6 +19,9 @@ import {
 	GET_REQUIREMENTS_SUCCESS,
 	GET_REQUIREMENTS_FAILURE,
 	CREATE_POTLUCK,
+	DELETE_POTLUCK,
+	DELETE_POTLUCK_SUCCESS,
+	DELETE_POTLUCK_FAILURE,
 	ADD_ATTENDEE,
 	ADD_ATTENDEE_SUCCESS,
 	ADD_ATTENDEE_FAILURE,
@@ -60,6 +63,7 @@ const initalState = {
 	addingReq: false,
 	removingReq: false,
 	claimingRequirement: false,
+	deletingPotluck: false,
 };
 
 export const reducer = (state = initalState, action) => {
@@ -198,6 +202,22 @@ export const reducer = (state = initalState, action) => {
 				isLoggingIn: false,
 				isRegistering: false,
 				fetchingPotlucks: false,
+			};
+		// Deleting potluck
+		case DELETE_POTLUCK:
+			return {
+				...state,
+				deletingPotluck: true,
+			};
+		case DELETE_POTLUCK_SUCCESS:
+			return {
+				...state,
+				deletingPotluck: false,
+			};
+		case DELETE_POTLUCK_FAILURE:
+			return {
+				...state,
+				deletingPotluck: false,
 			};
 		// Adding attendees to potluck
 		case ADD_ATTENDEE:

@@ -12,12 +12,15 @@ export const GET_CUR_USER_FAILURE = "GET_CUR_USER_FAILURE";
 export const GET_POTLUCKS = "GET_POTLUCKS";
 export const GET_POTLUCKS_SUCCESS = "GET_POTLUCKS_SUCCESS";
 export const GET_POTLUCKS_FAILURE = "GET_POTLUCKS_FAILURE";
+
 export const GET_POTLUCK_BY_ID = "GET_POTLUCK_BY_ID";
 export const GET_POTLUCKS_BY_ID_SUCCESS = "GET_POTLUCKS_BY_ID_SUCCESS";
 export const GET_POTLUCKS_BY_ID_FAILURE = "GET_POTLUCKS_BY_ID_FAILURE";
+
 export const GET_USERS_BY_POTLUCK = "GET_USERS_BY_POTLUCK";
 export const GET_USERS_BY_POTLUCK_SUCCESS = "GET_USERS_BY_POTLUCK_SUCCESS";
 export const GET_USERS_BY_POTLUCK_FAILURE = "GET_USERS_BY_POTLUCK_FAILURE";
+
 export const GET_REQUIREMENTS = "GET_REQUIREMENTS";
 export const GET_REQUIREMENTS_SUCCESS = "GET_REQUIREMENTS_SUCCESS";
 export const GET_REQUIREMENTS_FAILURE = "GET_REQUIREMENTS_FAILURE";
@@ -47,6 +50,10 @@ export const CLAIM_REQUIREMENT_SUCCESS = "CLAIM_REQUIREMENT_SUCCESS";
 export const CLAIM_REQUIREMENT_FAILURE = "CLAIM_REQUIREMENT_FAILURE";
 
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
+
+export const DELETE_POTLUCK = "DELETE_POTLUCK";
+export const DELETE_POTLUCK_SUCCESS = "DELETE_POTLUCK_SUCCESS";
+export const DELETE_POTLUCK_FAILURE = "DELETE_POTLUCK_FAILURE";
 
 //const devURL = process.env.DEV_URL;
 
@@ -164,6 +171,20 @@ export const addPotluck = (newPotluck) => (dispatch) => {
 			dispatch({ type: GET_POTLUCKS_SUCCESS, payload: res.data });
 		})
 		.catch((err) => console.log(err));
+};
+
+export const deletePotluck = (id) => (dispatch) => {
+	dispatch({ type: DELETE_POTLUCK });
+	axios
+		.delete(`http://localhost:5000/api/potlucks/${id}`, {
+			headers: { auth: localStorage.getItem("token") },
+		})
+		.then((res) => {
+			dispatch({ type: DELETE_POTLUCK_SUCCESS, payload: res.data });
+		})
+		.catch((err) => {
+			dispatch({ type: DELETE_POTLUCK_FAILURE, payload: err });
+		});
 };
 
 export const addAttendee = (newAttendee) => (dispatch) => {
