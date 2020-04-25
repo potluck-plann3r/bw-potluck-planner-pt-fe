@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import PotluckCard from "../Potluck/PotLuckCard";
 import PotluckView from "../Potluck/PotluckView/PotluckView.js";
 import CreatePotluck from "../Potluck/CreatePotluck";
+import NavBar from "../FrontPage/NavBar.js";
 import Styled from "styled-components";
 
 import { getPotlucks, addPotluck } from "../../actions/index";
-import { Route, Link, NavLink } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
 //#region Styles
@@ -20,11 +21,7 @@ const PotluckDiv = Styled.div`
 const Container = Styled.div`
     width: 100%;
     height: 100vh;
-    background-color: slategrey;
-`;
-const HeaderDiv = Styled.div`
-    height: 10vh;
-    background-color: green;
+    background-color: white;
 `;
 
 //#endregion
@@ -35,14 +32,9 @@ class UserDashboard extends React.Component {
 		this.state = {};
 	}
 
-	onLogOut = () => {
-		localStorage.removeItem("token");
-		this.props.history.push("/login");
-	};
-
-	componentDidMount() {
-		this.props.getPotlucks();
-		//this.props.history.push("/protected/potlucks");
+	async componentDidMount() {
+		await this.props.getPotlucks();
+		// this.props.history.push("/protected/potlucks");
 	}
 
 	render() {
@@ -51,15 +43,8 @@ class UserDashboard extends React.Component {
 		} else {
 			return (
 				<Container>
-					<HeaderDiv>
-						<button onClick={this.onLogOut}>Log out</button>
-						<NavLink to="/protected">My Potlucks</NavLink>
-						<Link to="/protected/create-potlucks">
-							Create Potluck
-						</Link>
-					</HeaderDiv>
+					<NavBar login={false} />
 					<PotluckDiv>
-						<div>{console.log(this.props)}</div>
 						<Route
 							exact
 							path="/protected"

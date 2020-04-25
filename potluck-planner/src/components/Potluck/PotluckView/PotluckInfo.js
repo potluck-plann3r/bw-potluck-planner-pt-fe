@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { deletePotluck, getPotlucks } from "../../../actions/index.js";
+import {
+	deletePotluck,
+	getPotlucks,
+	removeAttendee,
+} from "../../../actions/index.js";
 import "./PotluckView.scss";
 
 class PotluckInfo extends React.Component {
@@ -9,11 +13,14 @@ class PotluckInfo extends React.Component {
 		super(props);
 		this.state = {
 			admin: "non-admin",
+			attendee: "non-attendee",
 		};
 	}
 	componentDidMount() {
 		if (this.props.admin === 0) {
 			this.setState({ ...this.state, admin: "admin" });
+		} else {
+			this.setState({ ...this.state, attendee: "attendee" });
 		}
 	}
 
@@ -23,6 +30,16 @@ class PotluckInfo extends React.Component {
 		this.props.history.push("/protected");
 	};
 
+	onRemoveSelf = async (e) => {
+		console.log(`Removing user with id: ${this.props.currentUser.id}`);
+		let attendee = {
+			potluckId: this.props.currentPotluck.id,
+			userId: this.props.currentUser.id,
+		};
+		await this.props.removeAttendee(attendee);
+		await this.props.getPotlucks();
+		this.props.history.push("/protected");
+	};
 	render() {
 		return (
 			<>
@@ -45,6 +62,12 @@ class PotluckInfo extends React.Component {
 				>
 					Delete Potluck
 				</button>
+				<button
+					className={this.state.attendee}
+					onClick={this.onRemoveSelf}
+				>
+					Unattended Potluck
+				</button>
 			</>
 		);
 	}
@@ -52,10 +75,13 @@ class PotluckInfo extends React.Component {
 
 const mapStateToProps = (state) => ({
 	currentPotluck: state.reducer.currentPotluck,
+	currentUser: state.reducer.currentUser,
 });
 
 const PotluckInfoWithRouter = withRouter(PotluckInfo);
 
-export default connect(mapStateToProps, { deletePotluck, getPotlucks })(
-	PotluckInfoWithRouter
-);
+export default connect(mapStateToProps, {
+	deletePotluck,
+	getPotlucks,
+	removeAttendee,
+})(PotluckInfoWithRouter);

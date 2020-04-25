@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { addPotluck } from "../../actions/index";
+import { addPotluck, getPotlucks } from "../../actions/index";
 
 class CreatePotluck extends React.Component {
 	constructor(props) {
@@ -18,7 +18,7 @@ class CreatePotluck extends React.Component {
 		};
 	}
 
-	onChange = e => {
+	onChange = (e) => {
 		e.preventDefault();
 		console.log(this.state);
 		this.setState({
@@ -27,23 +27,22 @@ class CreatePotluck extends React.Component {
 		});
 	};
 
-	onCancel = _ => {
+	onCancel = (_) => {
 		this.props.history.push("/protected/potlucks");
 	};
 
-	handleSubmit = e => {
+	handleSubmit = async (e) => {
 		e.preventDefault();
-		this.props.addPotluck(this.state);
+		await this.props.addPotluck(this.state);
+		await this.props.getPotlucks();
+		// console.log("DONE");
+		this.props.history.push("/protected");
 	};
 
 	render() {
 		return (
 			<div>
-				<form
-					onSubmit={e => {
-						e.preventDefault();
-					}}
-				>
+				<form onSubmit={this.handleSubmit}>
 					<input
 						placeholder="Event name"
 						name="locationName"
@@ -94,14 +93,7 @@ class CreatePotluck extends React.Component {
 						value={this.state.locationCountry}
 					/>
 					<div>
-						<button
-							onClick={e => {
-								e.preventDefault();
-								return this.props.addPotluck(this.state);
-							}}
-						>
-							Submit
-						</button>
+						<button> Submit</button>
 						<button onClick={this.onCancel}>Cancel</button>
 					</div>
 				</form>
@@ -110,4 +102,6 @@ class CreatePotluck extends React.Component {
 	}
 }
 const CreatePotluckWithRouter = withRouter(CreatePotluck);
-export default connect(null, { addPotluck })(CreatePotluckWithRouter);
+export default connect(null, { addPotluck, getPotlucks })(
+	CreatePotluckWithRouter
+);

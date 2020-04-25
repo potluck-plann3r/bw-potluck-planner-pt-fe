@@ -50,7 +50,8 @@ export const CLAIM_REQUIREMENT_SUCCESS = "CLAIM_REQUIREMENT_SUCCESS";
 export const CLAIM_REQUIREMENT_FAILURE = "CLAIM_REQUIREMENT_FAILURE";
 
 export const CREATE_POTLUCK = "CREATE_POTLUCK";
-
+export const CREATE_POTLUCK_SUCCESS = "CREATE_POTLUCk_SUCCESS";
+export const CREATE_POTLUCK_FAILURE = "CREATE_POTLUCK_FAILURE";
 export const DELETE_POTLUCK = "DELETE_POTLUCK";
 export const DELETE_POTLUCK_SUCCESS = "DELETE_POTLUCK_SUCCESS";
 export const DELETE_POTLUCK_FAILURE = "DELETE_POTLUCK_FAILURE";
@@ -168,9 +169,11 @@ export const addPotluck = (newPotluck) => (dispatch) => {
 		})
 		.then((res) => {
 			console.log(res);
-			dispatch({ type: GET_POTLUCKS_SUCCESS, payload: res.data });
+			dispatch({ type: CREATE_POTLUCK_SUCCESS, payload: res.data });
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			dispatch({ type: CREATE_POTLUCK_FAILURE, payload: err });
+		});
 };
 
 export const deletePotluck = (id) => (dispatch) => {

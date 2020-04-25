@@ -98,12 +98,17 @@ class PotluckRequirements extends React.Component {
 					{this.props.currentRequirements.map((req) => {
 						var users = this.props.currentPotluckUsers;
 						var user;
+						var claim = "non-claimed";
+						if (req.fufilled === 0) {
+						}
 						for (var i = 0; i < users.length; i++) {
 							if (users[i].userId === req.fufilled) {
+								claim = "claimed";
 								user =
 									users[i].firstName +
 									" " +
 									users[i].lastName;
+
 								break;
 							} else {
 								user = "Unclaimed";
@@ -126,7 +131,7 @@ class PotluckRequirements extends React.Component {
 										Remove Requirement
 									</button>
 								</form>
-								<form>
+								<form className={claim}>
 									<button
 										id={req.id}
 										onClick={this.onClaimRequirement}

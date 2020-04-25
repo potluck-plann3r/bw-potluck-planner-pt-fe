@@ -40,6 +40,8 @@ import {
 	CLAIM_REQUIREMENT,
 	CLAIM_REQUIREMENT_SUCCESS,
 	CLAIM_REQUIREMENT_FAILURE,
+	CREATE_POTLUCK_FAILURE,
+	CREATE_POTLUCK_SUCCESS,
 } from "../actions";
 
 const initalState = {
@@ -199,9 +201,17 @@ export const reducer = (state = initalState, action) => {
 			return {
 				...state,
 				addingPotlucks: true,
-				isLoggingIn: false,
-				isRegistering: false,
-				fetchingPotlucks: false,
+			};
+		case CREATE_POTLUCK_SUCCESS:
+			return {
+				...state,
+				addingPotlucks: false,
+			};
+		case CREATE_POTLUCK_FAILURE:
+			return {
+				...state,
+				addingPotlucks: false,
+				error: action.payload,
 			};
 		// Deleting potluck
 		case DELETE_POTLUCK:

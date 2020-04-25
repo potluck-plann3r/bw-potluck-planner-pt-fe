@@ -9,9 +9,16 @@ import { getPotluckById } from "../../actions/index";
 const CardDiv = Styled.div`
     background-color: green;
     width: 20rem;
-    height: auto; 
+    height: 15rem; 
     margin: 3rem 3rem 3rem 3rem;
 `;
+
+const ContainerDiv = Styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+`;
+
 //#endregion
 
 class PotluckCard extends React.Component {
@@ -20,7 +27,7 @@ class PotluckCard extends React.Component {
 		this.state = {};
 	}
 
-	onSelect = e => {
+	onSelect = (e) => {
 		let selectId = e.currentTarget.id;
 		this.props.history.push(`/protected/view-potluck/${selectId}`);
 	};
@@ -31,8 +38,8 @@ class PotluckCard extends React.Component {
 			return <div>You don't have any potlucks currently</div>;
 		}
 		return (
-			<div>
-				{this.props.potlucks.map(potluck => {
+			<ContainerDiv>
+				{this.props.potlucks.map((potluck) => {
 					console.log(potluck.id);
 					return (
 						<CardDiv id={potluck.potluckId} onClick={this.onSelect}>
@@ -53,12 +60,12 @@ class PotluckCard extends React.Component {
 						</CardDiv>
 					);
 				})}
-			</div>
+			</ContainerDiv>
 		);
 	}
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	potlucks: state.reducer.potlucks,
 });
 

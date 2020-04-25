@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Route } from "react-router-dom";
-import Registration from "../components/Login/Registration";
-import Login from "../components/Login/Login";
+import Registration from "../Login/Registration";
+import Login from "../Login/Login";
+import NavBar from "./NavBar.js";
 
 class FrontPage extends React.Component {
 	constructor(props) {
@@ -17,6 +18,7 @@ class FrontPage extends React.Component {
 	render() {
 		return (
 			<>
+				<NavBar login={true} />
 				<Route exact path="/login" component={Login} />
 				<Route exact path="/register" component={Registration} />
 			</>
