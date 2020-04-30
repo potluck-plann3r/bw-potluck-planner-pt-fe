@@ -1,25 +1,9 @@
 import React from "react";
-import Styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { getPotlucks } from "../../actions/index";
 import { getPotluckById } from "../../actions/index";
-
-//#region Styled components
-const CardDiv = Styled.div`
-    background-color: green;
-    width: 20rem;
-    height: 15rem; 
-    margin: 3rem 3rem 3rem 3rem;
-`;
-
-const ContainerDiv = Styled.div`
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-`;
-
-//#endregion
+import "./Potluck.scss";
 
 class PotluckCard extends React.Component {
 	constructor(props) {
@@ -38,29 +22,26 @@ class PotluckCard extends React.Component {
 			return <div>You don't have any potlucks currently</div>;
 		}
 		return (
-			<ContainerDiv>
+			<div className="card-container">
 				{this.props.potlucks.map((potluck) => {
 					console.log(potluck.id);
 					return (
-						<CardDiv id={potluck.potluckId} onClick={this.onSelect}>
+						<div
+							className="card"
+							id={potluck.potluckId}
+							onClick={this.onSelect}
+						>
 							<h1>{potluck.locationName}</h1>
 							<address>
-								<h3>Location</h3>
-								<p>
-									{potluck.locationAddress}{" "}
-									{potluck.locationStreet} Unit:{" "}
-									{potluck.locationUnit}
-								</p>
 								<p>
 									{potluck.locationCity},{" "}
-									{potluck.locationState}{" "}
-									{potluck.locationCountry}
+									{potluck.locationState}
 								</p>
 							</address>
-						</CardDiv>
+						</div>
 					);
 				})}
-			</ContainerDiv>
+			</div>
 		);
 	}
 }

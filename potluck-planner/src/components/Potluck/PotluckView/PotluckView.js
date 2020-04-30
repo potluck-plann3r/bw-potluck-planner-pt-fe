@@ -13,11 +13,12 @@ import PotluckInfo from "./PotluckInfo.js";
 import PotluckAttendee from "./PotluckAttendee";
 import PotluckRequirements from "./PotluckRequirements.js";
 
+import "./PotluckView.scss";
+
 class PotluckView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			amdin: 1,
 			loading: true,
 		};
 	}
@@ -55,11 +56,12 @@ class PotluckView extends React.Component {
 			}
 
 			return (
-				<>
+				<div className="potluck-view-container">
 					<PotluckInfo admin={adminView} />
 					<PotluckAttendee admin={adminView} />
+
 					<PotluckRequirements admin={adminView} />
-				</>
+				</div>
 			);
 		}
 	}

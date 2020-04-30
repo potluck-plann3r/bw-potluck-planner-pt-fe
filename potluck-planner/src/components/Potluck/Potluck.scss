@@ -1,0 +1,78 @@
+.user-dashboard {
+	border: 2px double blue;
+	display: flex;
+	flex-direction: column;
+	//align-items: center;
+}
+.card-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.card {
+	background-color: rgb(117, 76, 117);
+	border-radius: 0.1rem;
+	box-sizing: border-box;
+	width: 12rem;
+	height: 15rem;
+	padding: 1.5rem;
+	margin: 1rem 1rem 1rem 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+
+.card h1 {
+	color: white;
+	font-size: 1.2rem;
+}
+
+.card p {
+	margin-top: 0.5rem;
+	color: lightgray;
+	font-size: 1rem;
+}
+.create-potluck {
+	//align-self: center;
+	padding: 3rem;
+	margin: 2rem;
+	border-radius: 0.3rem;
+
+	margin-left: 33vw;
+	width: 33vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: rgb(117, 76, 117);
+}
+
+.create-potluck h1 {
+	color: black;
+	font-size: 3rem;
+}
+
+.create-potluck-form {
+	color: grey;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0rem 0rem 0rem 0rem;
+}
+
+.create-potluck-form input {
+	margin: 1rem 1rem 1rem 1rem;
+}
+
+.create-potluck-button {
+	display: flex;
+	display: row;
+	width: 10rem;
+	justify-content: space-between;
+}
+
+.create-potluck-button button {
+	width: 3.5rem;
+	color: black;
+}

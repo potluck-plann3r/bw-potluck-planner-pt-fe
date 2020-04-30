@@ -1,30 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import PotluckCard from "../Potluck/PotLuckCard";
-import PotluckView from "../Potluck/PotluckView/PotluckView.js";
-import CreatePotluck from "../Potluck/CreatePotluck";
-import NavBar from "../FrontPage/NavBar.js";
-import Styled from "styled-components";
-
 import { getPotlucks, addPotluck } from "../../actions/index";
 import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
-//#region Styles
-const PotluckDiv = Styled.div`
-    height: 80vh;
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-`;
-const Container = Styled.div`
-    width: 100%;
-    height: 100vh;
-    background-color: white;
-`;
+import PotluckCard from "../Potluck/PotLuckCard";
+import PotluckView from "../Potluck/PotluckView/PotluckView.js";
+import CreatePotluck from "../Potluck/CreatePotluck";
 
-//#endregion
+import NavBar from "../FrontPage/NavBar.js";
+
+////////////////////////////////////////////////////
+// USER DASH BOARD!!!!!! ///////////////////////////
+////////////////////////////////////////////////////
 
 class UserDashboard extends React.Component {
 	constructor(props) {
@@ -42,27 +30,21 @@ class UserDashboard extends React.Component {
 			return <h2>Getting your potlucks</h2>;
 		} else {
 			return (
-				<Container>
+				<div className="user-dashboard">
 					<NavBar login={false} />
-					<PotluckDiv>
-						<Route
-							exact
-							path="/protected"
-							component={PotluckCard}
-						/>
+					<Route exact path="/protected" component={PotluckCard} />
 
-						<Route
-							exact
-							path="/protected/create-potlucks"
-							component={CreatePotluck}
-						/>
-						<Route
-							exact
-							path="/protected/view-potluck/:id"
-							component={PotluckView}
-						/>
-					</PotluckDiv>
-				</Container>
+					<Route
+						exact
+						path="/protected/create-potlucks"
+						component={CreatePotluck}
+					/>
+					<Route
+						exact
+						path="/protected/view-potluck/:id"
+						component={PotluckView}
+					/>
+				</div>
 			);
 		}
 	}

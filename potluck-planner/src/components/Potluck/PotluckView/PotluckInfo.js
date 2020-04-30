@@ -42,33 +42,43 @@ class PotluckInfo extends React.Component {
 	};
 	render() {
 		return (
-			<>
-				<h1>{this.props.currentPotluck.locationName}</h1>
-				<address>
-					<p>
-						{this.props.currentPotluck.locationAddress}{" "}
-						{this.props.currentPotluck.locationStreet}
-						{""}
-						{this.props.currentPotluck.locationUnit}
-					</p>
-					<p>{this.props.currentPotluck.locationCity}</p>
-					<p>{this.props.currentPotluck.locationState}</p>
-					<p>{this.props.currentPotluck.locationPostcode}</p>
-					<p>{this.props.currentPotluck.locationCountry}</p>
-				</address>
-				<button
-					className={this.state.admin}
-					onClick={this.onDeletePotluck}
-				>
-					Delete Potluck
-				</button>
-				<button
-					className={this.state.attendee}
-					onClick={this.onRemoveSelf}
-				>
-					Unattended Potluck
-				</button>
-			</>
+			<div className="potluck-info-container">
+				<img
+					className="potluck-info-img"
+					src={require("./imgs/family-meal.jpg")}
+					alt="img"
+				/>
+				<div className="potluck-info">
+					<h1>{this.props.currentPotluck.locationName}</h1>
+					<div>
+						<p>
+							{this.props.currentPotluck.locationAddress}{" "}
+							{this.props.currentPotluck.locationStreet}
+							{" Apt:"}
+							{this.props.currentPotluck.locationUnit}
+						</p>
+						<p>
+							{this.props.currentPotluck.locationCity}{" "}
+							{this.props.currentPotluck.locationState}
+							{", "}
+							{this.props.currentPotluck.locationPostcode}{" "}
+							{this.props.currentPotluck.locationCountry}
+						</p>
+					</div>
+					<button
+						className={this.state.admin}
+						onClick={this.onDeletePotluck}
+					>
+						Delete Potluck
+					</button>
+					<button
+						className={this.state.attendee}
+						onClick={this.onRemoveSelf}
+					>
+						Unattended Potluck
+					</button>
+				</div>
+			</div>
 		);
 	}
 }

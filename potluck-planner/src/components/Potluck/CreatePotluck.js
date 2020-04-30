@@ -41,58 +41,69 @@ class CreatePotluck extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
+			<div className="create-potluck">
+				<h1>Create a Potluck</h1>
+				<form
+					className="create-potluck-form"
+					onSubmit={this.handleSubmit}
+				>
+					<h2>What is the name of your event?</h2>
 					<input
 						placeholder="Event name"
 						name="locationName"
 						onChange={this.onChange}
 						value={this.state.locationName}
 					/>
-					<h2>Adress</h2>
-					<input
-						placeholder="address number"
-						name="locationAddress"
-						onChange={this.onChange}
-						value={this.state.locationAddress}
-					/>
-					<input
-						placeholder="street"
-						name="locationStreet"
-						onChange={this.onChange}
-						value={this.state.locationStreet}
-					/>
-					<input
-						placeholder="unit"
-						name="locationUnit"
-						onChange={this.onChange}
-						value={this.state.locationUnit}
-					/>
-					<input
-						placeholder="city"
-						name="locationCity"
-						onChange={this.onChange}
-						value={this.state.locationCity}
-					/>
-					<input
-						placeholder="zip code"
-						name="locationPostcode"
-						onChange={this.onChange}
-						value={this.state.locationPostcode}
-					/>
-					<input
-						placeholder="state"
-						name="locationState"
-						onChange={this.onChange}
-						value={this.state.locationState}
-					/>
+					<h2>Where is your event?</h2>
+					<div>
+						<input
+							placeholder="address number"
+							name="locationAddress"
+							onChange={this.onChange}
+							value={this.state.locationAddress}
+						/>
+						<input
+							placeholder="street"
+							name="locationStreet"
+							onChange={this.onChange}
+							value={this.state.locationStreet}
+						/>
+					</div>
+					<div>
+						<input
+							placeholder="unit"
+							name="locationUnit"
+							onChange={this.onChange}
+							value={this.state.locationUnit}
+						/>
+						<input
+							placeholder="city"
+							name="locationCity"
+							onChange={this.onChange}
+							value={this.state.locationCity}
+						/>
+					</div>
+					<div>
+						<input
+							placeholder="zip code"
+							name="locationPostcode"
+							onChange={this.onChange}
+							value={this.state.locationPostcode}
+						/>
+						<input
+							placeholder="state"
+							name="locationState"
+							onChange={this.onChange}
+							value={this.state.locationState}
+						/>
+					</div>
 					<input
 						placeholder="country"
 						name="locationCountry"
 						onChange={this.onChange}
 						value={this.state.locationCountry}
 					/>
-					<div>
+					<div className="create-potluck-button">
 						<button> Submit</button>
 						<button onClick={this.onCancel}>Cancel</button>
 					</div>

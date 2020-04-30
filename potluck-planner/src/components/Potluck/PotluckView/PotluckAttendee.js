@@ -6,7 +6,7 @@ import {
 	getUsersByPotluckId,
 	removeAttendee,
 } from "../../../actions/index";
-
+import "./PotluckView.scss";
 class PotluckAttendee extends React.Component {
 	constructor(props) {
 		super(props);
@@ -55,24 +55,25 @@ class PotluckAttendee extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="attendees-container">
 				<h2>Attendees</h2>
-				<div>
+				<div className="attendee-container">
 					{this.props.currentPotluckUsers.map((user) => {
-						console.log(user);
+						let userInitial =
+							user.firstName.substring(0, 1) +
+							user.lastName.substring(0, 1);
+						console.log(`Fist Initial: ${userInitial}`);
 						return (
-							<form>
-								<h4>
-									{user.firstName} {user.lastName}
-								</h4>
-								<button
+							<div className="attendee">
+								<span className="initials">{userInitial}</span>
+								{/* <button
 									id={user.userId}
 									onClick={this.removeAttendee}
 									className={this.state.admin}
 								>
 									Remove
-								</button>
-							</form>
+								</button> */}
+							</div>
 						);
 					})}
 				</div>
