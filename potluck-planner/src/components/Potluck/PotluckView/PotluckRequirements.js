@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import Popup from "reactjs-popup";
 import {
 	addRequirement,
 	removeRequirement,
@@ -15,7 +16,7 @@ class PotluckRequirements extends React.Component {
 		this.state = {
 			admin: "non-admin",
 			newRequirement: {
-				category: "",
+				category: "Meat",
 				item: "",
 				servings: "",
 			},
@@ -55,7 +56,7 @@ class PotluckRequirements extends React.Component {
 		await this.props.addRequirement(newRequirement, potluckId);
 		this.setState({
 			newRequirement: {
-				category: "",
+				category: "Meat",
 				item: "",
 				servings: "",
 				fufilled: false,
@@ -92,9 +93,79 @@ class PotluckRequirements extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h2>Food Requirements</h2>
-				<div>
+			<div className="requirement-container">
+				<h2>
+					Food Requirements{" "}
+					<div className={this.state.admin}>
+						<Popup
+							className="popup"
+							trigger={
+								<img
+									src={require("./imgs/add-icon.png")}
+									alt="x"
+								/>
+							}
+							arrow="false"
+							modal="true"
+							position="center"
+							lockScroll="true"
+						>
+							<form className="add-req-form">
+								<h2>Add new requirement</h2>
+								<div>Category</div>
+								<select
+									name="category"
+									onChange={this.onChangeReq}
+									required
+									// value={this.state.newRequirement.category}
+								>
+									<option value="Meat">Meat</option>
+									<option value="Poultry">Poultry</option>
+									<option value="Sea Food">Sea Food</option>
+									<option value="Beverage">Beverage</option>
+									<option value="Desert">Desert</option>
+									<option value="Side/Condiment">
+										Side/Condiment
+									</option>
+									<option value="Vegetable">Vegetable</option>
+									<option value="Dairy">Dairy</option>
+									<option value="Fruit">Fruit</option>
+								</select>
+								{/* <input
+								type="text"
+								name="category"
+								value={this.state.newRequirement.category}
+								onChange={this.onChangeReq}
+							/> */}
+								<div>Name of dish</div>
+								<input
+									type="text"
+									name="item"
+									value={this.state.newRequirement.item}
+									onChange={this.onChangeReq}
+								/>
+								<div>Expected servings</div>
+								<input
+									type="number"
+									name="servings"
+									value={this.state.newRequirement.servings}
+									onChange={this.onChangeReq}
+								/>
+								<button onClick={this.onSubmitReq}>
+									Add Requirement
+								</button>
+							</form>
+						</Popup>
+					</div>
+				</h2>
+				<div className="requirements">
+					{/* <div className="requirement">
+						<div>Category</div>
+						<div>Dish</div>
+						<div>Servings</div>
+						<div>Claimed by</div>
+						<div>Action</div>
+					</div> */}
 					{this.props.currentRequirements.map((req) => {
 						var users = this.props.currentPotluckUsers;
 						var user;
@@ -111,66 +182,40 @@ class PotluckRequirements extends React.Component {
 
 								break;
 							} else {
-								user = "Unclaimed";
+								user = (
+									<form className={claim}>
+										<button
+											id={req.id}
+											onClick={this.onClaimRequirement}
+										>
+											Claim Requirement
+										</button>
+									</form>
+								);
 							}
 						}
 						return (
-							<>
-								<h3>{req.foodCategory}</h3>
-								<p>
+							<div className="requirement">
+								<div>{req.foodCategory}</div>
+								<div>
 									{req.foodDescription}
 									{": "}
+								</div>
+								<div>
+									{"Servings: "}
 									{req.servings}
-								</p>
-								<h3>{user}</h3>
-								<form className={this.state.admin}>
-									<button
-										id={req.id}
-										onClick={this.removeRequirement}
-									>
-										Remove Requirement
-									</button>
-								</form>
-								<form className={claim}>
-									<button
-										id={req.id}
-										onClick={this.onClaimRequirement}
-									>
-										Claim Requirement
-									</button>
-								</form>
-							</>
+								</div>
+								<div>{user}</div>
+								<img
+									className={this.state.admin}
+									src={require("./imgs/x-icon.png")}
+									alt="x"
+									id={req.id}
+									onClick={this.removeRequirement}
+								/>
+							</div>
 						);
 					})}
-				</div>
-				<div className={this.state.admin}>
-					<h3>Add Requirement</h3>
-					<form>
-						<input
-							type="text"
-							name="category"
-							placeholder="food category"
-							value={this.state.newRequirement.category}
-							onChange={this.onChangeReq}
-						/>
-						<input
-							type="text"
-							name="item"
-							placeholder="food name"
-							value={this.state.newRequirement.item}
-							onChange={this.onChangeReq}
-						/>
-						<input
-							type="number"
-							name="servings"
-							placeholder="servings"
-							value={this.state.newRequirement.servings}
-							onChange={this.onChangeReq}
-						/>
-						<button onClick={this.onSubmitReq}>
-							Add Requirement
-						</button>
-					</form>
 				</div>
 			</div>
 		);
