@@ -188,7 +188,7 @@ class PotluckRequirements extends React.Component {
 											id={req.id}
 											onClick={this.onClaimRequirement}
 										>
-											Claim Requirement
+											Claim
 										</button>
 									</form>
 								);

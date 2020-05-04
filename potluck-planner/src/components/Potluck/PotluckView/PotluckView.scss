@@ -63,22 +63,93 @@ $attendee-icon-size: 4rem;
 	flex-wrap: nowrap;
 }
 .attendee {
+	box-sizing: border-box;
 	width: $attendee-icon-size;
 	height: $attendee-icon-size;
 	text-align: center;
-
 	margin: 0.5rem;
 	border-radius: 50%;
 	font-size: 2rem;
 	background-color: $card-color;
+	color: white;
+	&:hover {
+		background-color: white;
+		border: 1px solid $card-color;
+		color: $card-color;
+	}
 
 	.initials {
 		position: relative;
-		color: #fff;
 		align-self: center;
-		//font-family: "Courier New", monospace;
 		font-weight: bold;
-		line-height: $attendee-icon-size; /* 50% of parent */
+		line-height: $attendee-icon-size;
+	}
+}
+
+.admin.add-attendee {
+	display: flex;
+	flex-direction: column;
+	div {
+		color: white;
+		font-size: 1.3rem;
+		font-weight: bold;
+		align-self: center;
+	}
+	.email {
+		margin: 0rem;
+		align-self: flex-start;
+		margin-left: 3rem;
+		font-weight: normal;
+		font-size: 1rem;
+	}
+	input {
+		width: 70%;
+		align-self: center;
+	}
+	button {
+		width: 10rem;
+		height: 3rem;
+		border-radius: 3rem;
+		align-self: center;
+		color: white;
+		background-color: $card-color;
+		border: 1xp solid white;
+		&:hover {
+			color: $card-color;
+			background-color: white;
+			border: 1xp solid $card-color;
+		}
+	}
+	* {
+		margin-bottom: 1rem;
+	}
+}
+.attendee-info-content {
+	width: 20rem;
+	.popup {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		color: white;
+		font-size: 1.5rem;
+		div {
+			line-height: 3rem;
+			vertical-align: center;
+		}
+		button {
+			width: 7rem;
+			height: 2rem;
+			border-radius: 1rem;
+			align-self: center;
+			color: white;
+			background-color: $card-color;
+			border: 1xp solid white;
+			&:hover {
+				color: $card-color;
+				background-color: white;
+				border: 1xp solid $card-color;
+			}
+		}
 	}
 }
 
@@ -132,6 +203,24 @@ $icon-size: 2rem;
 			}
 			img:hover {
 				opacity: 60%;
+			}
+
+			.non-claimed {
+				button {
+					width: 7rem;
+					height: 2.5rem;
+					border-radius: 1rem;
+					//align-self: center;
+					margin: 0rem;
+					color: white;
+					background-color: $card-color;
+					border: 1xp solid white;
+					&:hover {
+						color: $card-color;
+						background-color: white;
+						border: 1xp solid $card-color;
+					}
+				}
 			}
 		}
 	}

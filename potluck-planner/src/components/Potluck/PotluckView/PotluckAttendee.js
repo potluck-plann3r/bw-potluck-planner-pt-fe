@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import Popup from "reactjs-popup";
 import {
 	addAttendee,
 	getUsersByPotluckId,
@@ -64,32 +65,57 @@ class PotluckAttendee extends React.Component {
 							user.lastName.substring(0, 1);
 						console.log(`Fist Initial: ${userInitial}`);
 						return (
-							<div className="attendee">
-								<span className="initials">{userInitial}</span>
-								{/* <button
-									id={user.userId}
-									onClick={this.removeAttendee}
-									className={this.state.admin}
-								>
-									Remove
-								</button> */}
-							</div>
+							<Popup
+								position="top"
+								className="attendee-info"
+								arrow="false"
+								ho
+								trigger={
+									<div className="attendee">
+										<span className="initials">
+											{userInitial}
+										</span>
+									</div>
+								}
+							>
+								<div className="popup">
+									<div>
+										{user.firstName} {user.lastName}
+									</div>
+									<button
+										id={user.userId}
+										onClick={this.removeAttendee}
+										className={this.state.admin}
+									>
+										Remove
+									</button>
+								</div>
+							</Popup>
 						);
 					})}
+					<Popup
+						modal="true"
+						trigger={
+							<div className="attendee add">
+								<span className="initials">+</span>
+							</div>
+						}
+					>
+						<form className={this.state.admin + " add-attendee"}>
+							<div>Add Attendee</div>
+							<div className="email">Attendee Email</div>
+							<input
+								type="email"
+								value={this.state.newAttendee}
+								onChange={this.onChangeAttendee}
+								name="newAttendee"
+							/>
+							<button onClick={this.onSubmitAttendee}>
+								Add Attendee{" "}
+							</button>
+						</form>
+					</Popup>
 				</div>
-				<form className={this.state.admin}>
-					<div>Add Attendee</div>
-					<input
-						type="text"
-						placeHolder="email"
-						value={this.state.newAttendee}
-						onChange={this.onChangeAttendee}
-						name="newAttendee"
-					/>
-					<button onClick={this.onSubmitAttendee}>
-						Add Attendee{" "}
-					</button>
-				</form>
 			</div>
 		);
 	}
