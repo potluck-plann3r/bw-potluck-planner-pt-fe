@@ -1,30 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import UserDashboard from './components/DashBoard/UserDashboard';
-import PrivateRoute from './components/Login/PrivateRoute';
-import './App.scss';
-import FrontPage from './components/FrontPage';
-import CreatePotluck from './components/Potluck/CreatePotluck';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import PrivateRoute from "./components/Login/PrivateRoute";
+import UserDashboard from "./components/DashBoard/UserDashboard";
+import FrontPage from "./components/FrontPage/FrontPage.js";
+import "./App.scss";
 
-import Login from './components/Login/Login';
-
-const WithAuth = PrivateRoute(UserDashboard);
+const WithAuth = PrivateRoute(FrontPage)(UserDashboard);
 
 class App extends React.Component {
-  render() {
-    return (
-      <Router>
-        <Route path="/home" component={FrontPage} />
-        <Route path="/login" component={FrontPage} />
-        <Route
-          exact
-          to="/protected"
-          render={props => <WithAuth {...props} />}
-        />
-        {/* <Route path="/protected" component={CreatePotluck} /> */}
-      </Router>
-    );
-  }
+	render() {
+		return (
+			<Router>
+				<Route to="/" render={(props) => <WithAuth {...props} />} />
+			</Router>
+		);
+	}
 }
 
 export default App;

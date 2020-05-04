@@ -1,63 +1,57 @@
-import React from 'react';
-import Styled from 'styled-components';
-import { connect } from 'react-redux';
-import {withRouter} from 'react-router';
-import { getPotlucks } from '../../actions/index';
-
-//#region Styled components
-const CardDiv = Styled.div`
-    background-color: green;
-    width: 20rem;
-    height: auto; 
-    margin: 3rem 3rem 3rem 3rem;
-`;
-//#endregion
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { getPotlucks } from "../../actions/index";
+import { getPotluckById } from "../../actions/index";
+import "./Potluck.scss";
 
 class PotluckCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
 
-  render() {
+	onSelect = (e) => {
+		let selectId = e.currentTarget.id;
+		this.props.history.push(`/protected/view-potluck/${selectId}`);
+	};
 
-    console.log(this.props.potlucks);
-    if (this.props.potlucks === undefined) {
-      return <div>You dont have any potlucks currently</div>;
-    }
-    return (
-      <div>
-        {this.props.potlucks.map(potluck => {
-          return (
-            <CardDiv>
-              <h1>{potluck.locationName}</h1>
-              <adress>
-                <h3>Location</h3>
-                <p>
-                  {potluck.locationAddress} {potluck.locationStreet} Unit:{' '}
-                  {potluck.locationUnit}
-                </p>
-                <p>
-                  {potluck.locationCity}, {potluck.locationState}{' '}
-                  {potluck.locationCountry}
-                </p>
-              </adress>
-            </CardDiv>
-          );
-        })}
-      </div>
-    );
-  }
+	render() {
+		console.log(this.props.potlucks);
+		if (this.props.potlucks === undefined) {
+			return <div>You don't have any potlucks currently</div>;
+		}
+		return (
+			<div className="card-container">
+				{this.props.potlucks.map((potluck) => {
+					console.log(potluck.id);
+					return (
+						<div
+							className="card"
+							id={potluck.potluckId}
+							onClick={this.onSelect}
+						>
+							<h1>{potluck.locationName}</h1>
+							<address>
+								<p>
+									{potluck.locationCity},{" "}
+									{potluck.locationState}
+								</p>
+							</address>
+						</div>
+					);
+				})}
+			</div>
+		);
+	}
 }
 
-const mapStateToProps = state => ({
-  potlucks: state.reducer.potlucks
+const mapStateToProps = (state) => ({
+	potlucks: state.reducer.potlucks,
 });
 
-const WithRouter = withRouter(PotluckCard)
+const PotluckCardWithRouter = withRouter(PotluckCard);
 
-export default connect(
-  mapStateToProps,
-  {}
-)(PotluckCard);
+export default connect(mapStateToProps, { getPotlucks, getPotluckById })(
+	PotluckCardWithRouter
+);
